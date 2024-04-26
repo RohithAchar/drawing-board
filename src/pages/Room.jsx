@@ -1,9 +1,9 @@
-import Canvas from "../components/Canvas";
+import WhiteBoard from "../components/WhiteBoard";
 
 const Room = () => {
   return (
     <div>
-      <Canvas />
+      <WhiteBoard />
     </div>
   );
 };

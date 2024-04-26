@@ -9,14 +9,19 @@ const Form = ({ createRoom }) => {
         placeholder="Enter username"
         className="input input-bordered w-full max-w-xs"
       />
-      <div className="flex mt-7 gap-2">
+      <div className="mt-7 flex gap-2">
         <input
           type="text"
           placeholder={createRoom ? "Generate Key" : "Enter room key"}
           className="input input-bordered w-full max-w-xs"
           disabled={createRoom}
         />
-        {createRoom && <button className="btn">Generate</button>}
+        {createRoom && (
+          <>
+            <button className="btn">Generate</button>
+            <button className="btn btn-outline">Copy</button>
+          </>
+        )}
       </div>
       <button className="btn btn-primary mt-7 w-full">
         {createRoom ? "Create Room" : "Join Room"}
