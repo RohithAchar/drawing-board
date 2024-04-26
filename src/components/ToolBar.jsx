@@ -34,8 +34,32 @@ const ToolBar = ({ handleSelectTool, handleColor }) => {
         <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
       </div>
       <div className="flex gap-3">
-        <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
-        <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
+        {/* <div className="h-[40px] w-[40px] rounded-lg border-2"> */}
+        <input
+          className="w-[40px] h-[40px] cursor-pointer"
+          type="color"
+          name="color"
+          id="color"
+          onChange={(e) => handleColor(e.target.value)}
+        />
+        {/* </div> */}
+        <select className="select">
+          <option disabled selected>
+            Thickness
+          </option>
+          <option className="text-xs">____</option>
+          <option className="text-sm">____</option>
+          <option className="text-base">____</option>
+          <option className="text-lg">____</option>
+          <option className="text-2xl">____</option>
+          <option className="text-3xl">____</option>
+          <option className="text-4xl">____</option>
+          <option className="text-5xl">____</option>
+          <option className="text-6xl">____</option>
+          <option className="text-7xl">____</option>
+          <option className="text-8xl">____</option>
+          <option className="text-9xl">____</option>
+        </select>
       </div>
       <div className="flex gap-3">
         <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
