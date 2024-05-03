@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { faPencil, faSlash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCircle,
+  faPencil,
+  faSlash,
+  faSquare,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ToolBar = ({
@@ -7,6 +12,7 @@ const ToolBar = ({
   handleColor,
   handleThickness,
   getThickness,
+  getColor,
 }) => {
   const [selectedDiv, setSelectedDiv] = useState(1);
   return (
@@ -35,8 +41,32 @@ const ToolBar = ({
           {" "}
           <FontAwesomeIcon className="ml-2 mt-2" icon={faSlash} size="lg" />
         </div>
-        <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
-        <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
+        <div
+          className={`border-2 h-[40px] w-[40px] rounded-lg cursor-pointer ${
+            selectedDiv === 3 && "bg-neutral text-white"
+          }`}
+          onClick={() => {
+            handleSelectTool("rectangle");
+            setSelectedDiv(3);
+          }}
+        >
+          <FontAwesomeIcon
+            className="ml-[8.5px] mt-2"
+            icon={faSquare}
+            size="lg"
+          />
+        </div>
+        <div
+          className={`border-2 h-[40px] w-[40px] rounded-lg cursor-pointer ${
+            selectedDiv === 4 && "bg-neutral text-white"
+          }`}
+          onClick={() => {
+            handleSelectTool("circle");
+            setSelectedDiv(4);
+          }}
+        >
+          <FontAwesomeIcon className="ml-2 mt-2" icon={faCircle} size="lg" />
+        </div>
       </div>
       <div className="flex gap-3">
         {/* <div className="h-[40px] w-[40px] rounded-lg border-2"> */}
@@ -45,6 +75,7 @@ const ToolBar = ({
           type="color"
           name="color"
           id="color"
+          value={getColor}
           onChange={(e) => handleColor(e.target.value)}
         />
         {/* </div> */}
@@ -52,6 +83,7 @@ const ToolBar = ({
         <select
           className="select"
           onChange={(e) => handleThickness(e.target.value)}
+          value={getThickness}
         >
           <option disabled>Thickness</option>
           <option value="12" className="text-xs">
