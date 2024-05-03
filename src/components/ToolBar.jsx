@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import {
   faCircle,
   faPencil,
+  faRotateLeft,
+  faRotateRight,
   faSlash,
   faSquare,
+  faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -128,8 +131,23 @@ const ToolBar = ({
         </select>
       </div>
       <div className="flex gap-3">
-        <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
-        <div className="bg-black h-[40px] w-[40px] rounded-lg"></div>
+        <div className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100">
+          <FontAwesomeIcon
+            className="ml-2 mt-2"
+            icon={faRotateLeft}
+            size="lg"
+          />
+        </div>
+        <div className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100">
+          <FontAwesomeIcon
+            className="ml-2 mt-2"
+            icon={faRotateRight}
+            size="lg"
+          />
+        </div>
+        <div className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100">
+          <FontAwesomeIcon className="ml-2 mt-2" icon={faTrash} size="lg" />
+        </div>
       </div>
     </div>
   );
