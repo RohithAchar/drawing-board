@@ -16,6 +16,9 @@ const ToolBar = ({
   handleThickness,
   getThickness,
   getColor,
+  handleUndo,
+  handleRedo,
+  handleDelete,
 }) => {
   const [selectedDiv, setSelectedDiv] = useState(1);
   return (
@@ -131,21 +134,30 @@ const ToolBar = ({
         </select>
       </div>
       <div className="flex gap-3">
-        <div className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100">
+        <div
+          className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100"
+          onClick={handleUndo}
+        >
           <FontAwesomeIcon
             className="ml-2 mt-2"
             icon={faRotateLeft}
             size="lg"
           />
         </div>
-        <div className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100">
+        <div
+          className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100"
+          onClick={handleRedo}
+        >
           <FontAwesomeIcon
             className="ml-2 mt-2"
             icon={faRotateRight}
             size="lg"
           />
         </div>
-        <div className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100">
+        <div
+          className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100"
+          onClick={handleDelete}
+        >
           <FontAwesomeIcon className="ml-2 mt-2" icon={faTrash} size="lg" />
         </div>
       </div>

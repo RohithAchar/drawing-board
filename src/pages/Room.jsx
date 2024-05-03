@@ -9,6 +9,17 @@ const Room = () => {
   console.log(tool);
   console.log(color);
   console.log("Thickness: ", thickness);
+
+  const handleUndo = () => {
+    console.log("undo");
+  };
+  const handleRedo = () => {
+    console.log("Redo");
+  };
+  const handleDelete = () => {
+    console.log("delete");
+  };
+
   return (
     <div className="relative">
       <ToolBar
@@ -17,6 +28,9 @@ const Room = () => {
         handleThickness={setThickness}
         getThickness={thickness}
         getColor={color}
+        handleUndo={handleUndo}
+        handleRedo={handleRedo}
+        handleDelete={handleDelete}
       />
       <WhiteBoard />
     </div>
