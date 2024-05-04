@@ -5,7 +5,7 @@ import WhiteBoard from "../components/WhiteBoard";
 const Room = () => {
   const [tool, setTool] = useState("pencil");
   const [color, setColor] = useState("#333333");
-  const [thickness, setThickness] = useState(14);
+  const [thickness, setThickness] = useState(4);
   const [elements, setElements] = useState([]);
 
   const canvasRef = useRef(null);
@@ -42,6 +42,8 @@ const Room = () => {
         ctxRef={ctxRef}
         elements={elements}
         setElements={setElements}
+        color={color}
+        thickness={thickness}
       />
     </div>
   );

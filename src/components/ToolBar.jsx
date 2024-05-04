@@ -22,7 +22,7 @@ const ToolBar = ({
 }) => {
   const [selectedDiv, setSelectedDiv] = useState(1);
   return (
-    <div className="absolute top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2  w-[700px] h-[60px] shadow-2xl rounded-lg mt-10 mx-auto flex justify-between align-center items-center px-4 z-10">
+    <div className="absolute top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2  w-[700px] h-[60px] shadow-2xl rounded-lg mt-10 mx-auto flex justify-between align-center items-center px-4 z-20">
       <div className="flex gap-3">
         <div
           className={`border-2 h-[40px] w-[40px] rounded-lg cursor-pointer ${
@@ -92,40 +92,40 @@ const ToolBar = ({
           value={getThickness}
         >
           <option disabled>Thickness</option>
-          <option value="12" className="text-xs">
+          <option value="1" className="text-xs">
             Thickness
           </option>
-          <option value="14" className="text-sm">
+          <option value="2" className="text-sm">
             Thickness
           </option>
-          <option value="16" className="text-base">
+          <option value="4" className="text-base">
             Thickness
           </option>
-          <option value="18" className="text-lg">
+          <option value="6" className="text-lg">
             Thickness
           </option>
-          <option value="20" className="text-xl">
+          <option value="8" className="text-xl">
             Thickness
           </option>
-          <option value="24" className="text-2xl">
+          <option value="10" className="text-2xl">
             Thickness
           </option>
-          <option value="30" className="text-3xl">
+          <option value="12" className="text-3xl">
             Thickness
           </option>
-          <option value="36" className="text-4xl">
+          <option value="14" className="text-4xl">
             Thickness
           </option>
-          <option value="48" className="text-5xl">
+          <option value="16" className="text-5xl">
             Thickness
           </option>
-          <option value="60" className="text-6xl">
+          <option value="18" className="text-6xl">
             Thickness
           </option>
-          <option value="72" className="text-7xl">
+          <option value="20" className="text-7xl">
             Thickness
           </option>
-          <option value="96" className="text-8xl">
+          <option value="22" className="text-8xl">
             Thickness
           </option>
           {/* <option values="128" className="text-9xl">

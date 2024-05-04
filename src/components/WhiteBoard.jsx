@@ -3,8 +3,16 @@ import rough from "roughjs";
 
 const roughGenerator = rough.generator();
 
-const WhiteBoard = ({ canvasRef, ctxRef, elements, setElements }) => {
+const WhiteBoard = ({
+  canvasRef,
+  ctxRef,
+  elements,
+  setElements,
+  color,
+  thickness,
+}) => {
   const [drawing, setDrawing] = useState(false);
+  console.log(thickness);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -14,9 +22,12 @@ const WhiteBoard = ({ canvasRef, ctxRef, elements, setElements }) => {
 
   useEffect(() => {
     const roughCanvas = rough.canvas(canvasRef.current);
-    console.log(roughCanvas);
     elements.forEach((element) => {
-      roughCanvas.linearPath(element.path);
+      roughCanvas.linearPath(element.path, {
+        stroke: element.stroke,
+        strokeWidth: element.strokeWidth,
+        roughness: 0.5,
+      });
     });
   }, [elements]);
 
@@ -30,7 +41,8 @@ const WhiteBoard = ({ canvasRef, ctxRef, elements, setElements }) => {
         clientX,
         clientY,
         path: [[clientX, clientY]],
-        stroke: "#333333",
+        stroke: color,
+        strokeWidth: thickness,
       },
     ]);
   };
@@ -53,13 +65,12 @@ const WhiteBoard = ({ canvasRef, ctxRef, elements, setElements }) => {
   };
   const handleMouseUp = (e) => {
     setDrawing(false);
-    //console.log(e.clientX, e.clientY);
   };
 
   return (
     <canvas
       ref={canvasRef}
-      // className="w-screen h-screen"
+      className="z-10"
       width={window.innerWidth}
       height={window.innerHeight}
       onMouseDown={handleMouseDown}
