@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import ToolBar from "../components/ToolBar";
 import WhiteBoard from "../components/WhiteBoard";
 
@@ -6,6 +6,11 @@ const Room = () => {
   const [tool, setTool] = useState("pencil");
   const [color, setColor] = useState("#333333");
   const [thickness, setThickness] = useState(14);
+  const [elements, setElements] = useState([]);
+
+  const canvasRef = useRef(null);
+  const ctxRef = useRef(null);
+
   console.log(tool);
   console.log(color);
   console.log("Thickness: ", thickness);
@@ -32,7 +37,12 @@ const Room = () => {
         handleRedo={handleRedo}
         handleDelete={handleDelete}
       />
-      <WhiteBoard />
+      <WhiteBoard
+        canvasRef={canvasRef}
+        ctxRef={ctxRef}
+        elements={elements}
+        setElements={setElements}
+      />
     </div>
   );
 };
