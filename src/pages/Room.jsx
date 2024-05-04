@@ -11,9 +11,9 @@ const Room = () => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
 
-  console.log(tool);
-  console.log(color);
-  console.log("Thickness: ", thickness);
+  // console.log(tool);
+  // console.log(color);
+  // console.log("Thickness: ", thickness);
 
   const handleUndo = () => {
     console.log("undo");

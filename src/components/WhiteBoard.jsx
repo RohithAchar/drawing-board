@@ -1,16 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import rough from "roughjs";
 
 const roughGenerator = rough.generator();
 
 const WhiteBoard = ({ canvasRef, ctxRef, elements, setElements }) => {
   const [drawing, setDrawing] = useState(false);
-  console.log(elements);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
     ctxRef.current = ctx;
   }, []);
+
+  useEffect(() => {
+    const roughCanvas = rough.canvas(canvasRef.current);
+    console.log(roughCanvas);
+    elements.forEach((element) => {
+      roughCanvas.linearPath(element.path);
+    });
+  }, [elements]);
 
   const handleMouseDown = (e) => {
     setDrawing(true);
@@ -30,7 +38,6 @@ const WhiteBoard = ({ canvasRef, ctxRef, elements, setElements }) => {
     if (drawing) {
       const { clientX, clientY } = e;
       const arrLength = elements.length;
-      console.log(arrLength);
       //Static pencil
       const { path } = elements[arrLength - 1];
       const newPath = [...path, [clientX, clientY]];
@@ -52,10 +59,12 @@ const WhiteBoard = ({ canvasRef, ctxRef, elements, setElements }) => {
   return (
     <canvas
       ref={canvasRef}
-      className="w-screen h-screen absolute"
-      onMouseDown={(e) => handleMouseDown(e)}
-      onMouseUp={(e) => handleMouseUp(e)}
-      onMouseMove={(e) => handleMouseMove(e)}
+      // className="w-screen h-screen"
+      width={window.innerWidth}
+      height={window.innerHeight}
+      onMouseDown={handleMouseDown}
+      onMouseUp={handleMouseUp}
+      onMouseMove={handleMouseMove}
     ></canvas>
   );
 };
