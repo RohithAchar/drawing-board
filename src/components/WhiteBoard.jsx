@@ -10,6 +10,7 @@ const WhiteBoard = ({
   setElements,
   color,
   thickness,
+  tool,
 }) => {
   const [drawing, setDrawing] = useState(false);
   console.log(thickness);
@@ -21,46 +22,52 @@ const WhiteBoard = ({
   }, []);
 
   useEffect(() => {
-    const roughCanvas = rough.canvas(canvasRef.current);
-    elements.forEach((element) => {
-      roughCanvas.linearPath(element.path, {
-        stroke: element.stroke,
-        strokeWidth: element.strokeWidth,
-        roughness: 0.5,
+    if (tool == "pencil") {
+      const roughCanvas = rough.canvas(canvasRef.current);
+      elements.forEach((element) => {
+        roughCanvas.linearPath(element.path, {
+          stroke: element.stroke,
+          strokeWidth: element.strokeWidth,
+          roughness: 0.5,
+        });
       });
-    });
+    }
   }, [elements]);
 
   const handleMouseDown = (e) => {
     setDrawing(true);
     const { clientX, clientY } = e;
-    setElements((previous) => [
-      ...previous,
-      {
-        type: "pencil",
-        clientX,
-        clientY,
-        path: [[clientX, clientY]],
-        stroke: color,
-        strokeWidth: thickness,
-      },
-    ]);
+    if (tool == "pencil") {
+      setElements((previous) => [
+        ...previous,
+        {
+          type: "pencil",
+          clientX,
+          clientY,
+          path: [[clientX, clientY]],
+          stroke: color,
+          strokeWidth: thickness,
+        },
+      ]);
+    }
   };
   const handleMouseMove = (e) => {
     if (drawing) {
       const { clientX, clientY } = e;
-      const arrLength = elements.length;
-      //Static pencil
-      const { path } = elements[arrLength - 1];
-      const newPath = [...path, [clientX, clientY]];
+      if (tool == "pencil") {
+        const arrLength = elements.length;
+        //Static pencil
+        const { path } = elements[arrLength - 1];
+        const newPath = [...path, [clientX, clientY]];
 
-      setElements((previousEle) => {
-        return previousEle.map((ele, index) => {
-          if (index == arrLength - 1) {
-            return { ...ele, path: newPath };
-          } else return ele;
+        setElements((previousEle) => {
+          return previousEle.map((ele, index) => {
+            if (index == arrLength - 1) {
+              return { ...ele, path: newPath };
+            } else return ele;
+          });
         });
-      });
+      }
     }
   };
   const handleMouseUp = (e) => {

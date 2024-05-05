@@ -44,6 +44,7 @@ const Room = () => {
         setElements={setElements}
         color={color}
         thickness={thickness}
+        tool={tool}
       />
     </div>
   );
