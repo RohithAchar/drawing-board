@@ -13,7 +13,7 @@ const WhiteBoard = ({
   tool,
 }) => {
   const [drawing, setDrawing] = useState(false);
-  console.log(thickness);
+  console.log(elements);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -22,16 +22,30 @@ const WhiteBoard = ({
   }, []);
 
   useEffect(() => {
-    if (tool == "pencil") {
-      const roughCanvas = rough.canvas(canvasRef.current);
-      elements.forEach((element) => {
+    const roughCanvas = rough.canvas(canvasRef.current);
+    if (elements.length > 0) {
+      ctxRef.current.clearRect(
+        0,
+        0,
+        canvasRef.current.width,
+        canvasRef.current.height
+      );
+    }
+    elements.forEach((element) => {
+      if (element.type == "pencil") {
         roughCanvas.linearPath(element.path, {
           stroke: element.stroke,
           strokeWidth: element.strokeWidth,
           roughness: 0.5,
         });
-      });
-    }
+      } else if (element.type === "line") {
+        roughCanvas.line(...element.path, {
+          stroke: element.stroke,
+          strokeWidth: element.strokeWidth,
+          roughness: 0.5,
+        });
+      }
+    });
   }, [elements]);
 
   const handleMouseDown = (e) => {
@@ -41,10 +55,22 @@ const WhiteBoard = ({
       setElements((previous) => [
         ...previous,
         {
-          type: "pencil",
+          type: tool,
           clientX,
           clientY,
           path: [[clientX, clientY]],
+          stroke: color,
+          strokeWidth: thickness,
+        },
+      ]);
+    } else if (tool == "line") {
+      setElements((previous) => [
+        ...previous,
+        {
+          type: tool,
+          clientX,
+          clientY,
+          path: [clientX, clientY],
           stroke: color,
           strokeWidth: thickness,
         },
@@ -54,12 +80,23 @@ const WhiteBoard = ({
   const handleMouseMove = (e) => {
     if (drawing) {
       const { clientX, clientY } = e;
+      const arrLength = elements.length;
       if (tool == "pencil") {
-        const arrLength = elements.length;
-        //Static pencil
         const { path } = elements[arrLength - 1];
         const newPath = [...path, [clientX, clientY]];
 
+        setElements((previousEle) => {
+          return previousEle.map((ele, index) => {
+            if (index == arrLength - 1) {
+              return { ...ele, path: newPath };
+            } else return ele;
+          });
+        });
+      } else if (tool == "line") {
+        const { path } = elements[arrLength - 1];
+        const newPath = path;
+        newPath[2] = clientX;
+        newPath[3] = clientY;
         setElements((previousEle) => {
           return previousEle.map((ele, index) => {
             if (index == arrLength - 1) {
