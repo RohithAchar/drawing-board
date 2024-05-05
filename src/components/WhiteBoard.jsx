@@ -36,13 +36,28 @@ const WhiteBoard = ({
         roughCanvas.linearPath(element.path, {
           stroke: element.stroke,
           strokeWidth: element.strokeWidth,
-          roughness: 0.5,
+          roughness: 0,
         });
       } else if (element.type === "line") {
         roughCanvas.line(...element.path, {
           stroke: element.stroke,
           strokeWidth: element.strokeWidth,
-          roughness: 0.5,
+          roughness: 1,
+          seed: 5,
+        });
+      } else if (element.type === "rectangle") {
+        roughCanvas.rectangle(...element.path, {
+          stroke: element.stroke,
+          strokeWidth: element.strokeWidth,
+          roughness: 2,
+          seed: 5,
+        });
+      } else if (element.type === "circle") {
+        roughCanvas.circle(...element.path, {
+          stroke: element.stroke,
+          strokeWidth: element.strokeWidth,
+          roughness: 2,
+          seed: 5,
         });
       }
     });
@@ -64,6 +79,30 @@ const WhiteBoard = ({
         },
       ]);
     } else if (tool == "line") {
+      setElements((previous) => [
+        ...previous,
+        {
+          type: tool,
+          clientX,
+          clientY,
+          path: [clientX, clientY],
+          stroke: color,
+          strokeWidth: thickness,
+        },
+      ]);
+    } else if (tool == "rectangle") {
+      setElements((previous) => [
+        ...previous,
+        {
+          type: tool,
+          clientX,
+          clientY,
+          path: [clientX, clientY],
+          stroke: color,
+          strokeWidth: thickness,
+        },
+      ]);
+    } else if (tool == "circle") {
       setElements((previous) => [
         ...previous,
         {
@@ -97,6 +136,29 @@ const WhiteBoard = ({
         const newPath = path;
         newPath[2] = clientX;
         newPath[3] = clientY;
+        setElements((previousEle) => {
+          return previousEle.map((ele, index) => {
+            if (index == arrLength - 1) {
+              return { ...ele, path: newPath };
+            } else return ele;
+          });
+        });
+      } else if (tool == "rectangle") {
+        const { path } = elements[arrLength - 1];
+        const newPath = path;
+        newPath[2] = clientX - newPath[0];
+        newPath[3] = clientY - newPath[1];
+        setElements((previousEle) => {
+          return previousEle.map((ele, index) => {
+            if (index == arrLength - 1) {
+              return { ...ele, path: newPath };
+            } else return ele;
+          });
+        });
+      } else if (tool == "circle") {
+        const { path } = elements[arrLength - 1];
+        const newPath = path;
+        newPath[2] = clientX - newPath[0] + clientY - newPath[1];
         setElements((previousEle) => {
           return previousEle.map((ele, index) => {
             if (index == arrLength - 1) {

@@ -98,34 +98,34 @@ const ToolBar = ({
           <option value="2" className="text-sm">
             Thickness
           </option>
-          <option value="4" className="text-base">
+          <option value="3" className="text-base">
             Thickness
           </option>
-          <option value="6" className="text-lg">
+          <option value="4" className="text-lg">
             Thickness
           </option>
-          <option value="8" className="text-xl">
+          <option value="5" className="text-xl">
             Thickness
           </option>
-          <option value="10" className="text-2xl">
+          <option value="6" className="text-2xl">
             Thickness
           </option>
-          <option value="12" className="text-3xl">
+          <option value="7" className="text-3xl">
             Thickness
           </option>
-          <option value="14" className="text-4xl">
+          <option value="8" className="text-4xl">
             Thickness
           </option>
-          <option value="16" className="text-5xl">
+          <option value="9" className="text-5xl">
             Thickness
           </option>
-          <option value="18" className="text-6xl">
+          <option value="10" className="text-6xl">
             Thickness
           </option>
-          <option value="20" className="text-7xl">
+          <option value="11" className="text-7xl">
             Thickness
           </option>
-          <option value="22" className="text-8xl">
+          <option value="12" className="text-8xl">
             Thickness
           </option>
           {/* <option values="128" className="text-9xl">
