@@ -22,7 +22,10 @@ const Room = () => {
     console.log("Redo");
   };
   const handleDelete = () => {
-    console.log("delete");
+    const canvas = canvasRef.current;
+    const ctx = ctxRef.current;
+    setElements([]);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   };
 
   return (
