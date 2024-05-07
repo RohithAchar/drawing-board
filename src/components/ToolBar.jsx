@@ -19,6 +19,8 @@ const ToolBar = ({
   handleUndo,
   handleRedo,
   handleDelete,
+  history,
+  elements,
 }) => {
   const [selectedDiv, setSelectedDiv] = useState(1);
   return (
@@ -136,7 +138,7 @@ const ToolBar = ({
       <div className="flex gap-3">
         <div
           className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100"
-          onClick={handleUndo}
+          onClick={elements.length !== 0 && handleUndo}
         >
           <FontAwesomeIcon
             className="ml-2 mt-2"
@@ -146,7 +148,7 @@ const ToolBar = ({
         </div>
         <div
           className="border-2 h-[40px] w-[40px] rounded-lg cursor-pointer hover:bg-slate-100"
-          onClick={handleRedo}
+          onClick={history.length > 0 && handleRedo}
         >
           <FontAwesomeIcon
             className="ml-2 mt-2"

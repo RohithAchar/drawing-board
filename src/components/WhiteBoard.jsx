@@ -13,7 +13,6 @@ const WhiteBoard = ({
   tool,
 }) => {
   const [drawing, setDrawing] = useState(false);
-  console.log(elements);
 
   useEffect(() => {
     const canvas = canvasRef.current;
