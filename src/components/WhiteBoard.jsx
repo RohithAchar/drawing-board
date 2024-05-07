@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import rough from "roughjs";
 
 const roughGenerator = rough.generator();
@@ -37,6 +37,7 @@ const WhiteBoard = ({
           stroke: element.stroke,
           strokeWidth: element.strokeWidth,
           roughness: 0,
+          seed: 5,
         });
       } else if (element.type === "line") {
         roughCanvas.line(...element.path, {
@@ -56,8 +57,8 @@ const WhiteBoard = ({
         roughCanvas.circle(...element.path, {
           stroke: element.stroke,
           strokeWidth: element.strokeWidth,
-          roughness: 2,
-          seed: 5,
+          roughness: 0,
+          seed: 0,
         });
       }
     });
@@ -176,7 +177,7 @@ const WhiteBoard = ({
   return (
     <canvas
       ref={canvasRef}
-      className="z-10"
+      className="z-[-10]"
       width={window.innerWidth}
       height={window.innerHeight}
       onMouseDown={handleMouseDown}
