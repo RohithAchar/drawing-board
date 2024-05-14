@@ -12,10 +12,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ToolBar = ({
   handleSelectTool,
-  handleColor,
-  handleThickness,
-  getThickness,
-  getColor,
   handleUndo,
   handleRedo,
   handleDelete,
@@ -24,7 +20,7 @@ const ToolBar = ({
 }) => {
   const [selectedDiv, setSelectedDiv] = useState(1);
   return (
-    <div className="absolute bg-white top-10 left-1/2 transform -translate-x-1/2 -translate-y-1/2  w-[700px] h-[60px] shadow-2xl rounded-lg mt-10 mx-auto flex justify-between align-center items-center px-4 z-20">
+    <div className="absolute bg-white top-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  w-[700px] h-[60px] shadow-2xl rounded-lg mt-10 mx-auto flex justify-around align-center items-center px-4 z-20">
       <div className="flex gap-3">
         <div
           className={`border-2 h-[40px] w-[40px] rounded-lg cursor-pointer ${
@@ -75,65 +71,6 @@ const ToolBar = ({
         >
           <FontAwesomeIcon className="ml-2 mt-2" icon={faCircle} size="lg" />
         </div>
-      </div>
-      <div className="flex gap-3">
-        {/* <div className="h-[40px] w-[40px] rounded-lg border-2"> */}
-        <input
-          className="w-[40px] h-[40px] cursor-pointer"
-          type="color"
-          name="color"
-          id="color"
-          value={getColor}
-          onChange={(e) => handleColor(e.target.value)}
-        />
-        {/* </div> */}
-
-        <select
-          className="select"
-          onChange={(e) => handleThickness(e.target.value)}
-          value={getThickness}
-        >
-          <option disabled>Thickness</option>
-          <option value="1" className="text-xs">
-            Thickness
-          </option>
-          <option value="2" className="text-sm">
-            Thickness
-          </option>
-          <option value="3" className="text-base">
-            Thickness
-          </option>
-          <option value="4" className="text-lg">
-            Thickness
-          </option>
-          <option value="5" className="text-xl">
-            Thickness
-          </option>
-          <option value="6" className="text-2xl">
-            Thickness
-          </option>
-          <option value="7" className="text-3xl">
-            Thickness
-          </option>
-          <option value="8" className="text-4xl">
-            Thickness
-          </option>
-          <option value="9" className="text-5xl">
-            Thickness
-          </option>
-          <option value="10" className="text-6xl">
-            Thickness
-          </option>
-          <option value="11" className="text-7xl">
-            Thickness
-          </option>
-          <option value="12" className="text-8xl">
-            Thickness
-          </option>
-          {/* <option values="128" className="text-9xl">
-            Thickness
-          </option> */}
-        </select>
       </div>
       <div className="flex gap-3">
         <div

@@ -1,10 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import ToolBar from "../components/ToolBar";
 import WhiteBoard from "../components/WhiteBoard";
+import ToolProperties from "../components/ToolProperties";
 
 const Room = () => {
   const [tool, setTool] = useState("pencil");
-  const [color, setColor] = useState("#333333");
+  const [color, setColor] = useState("#1e1e1e");
   const [thickness, setThickness] = useState(4);
   const [elements, setElements] = useState([]);
   const [history, setHistory] = useState([]);
@@ -50,15 +51,17 @@ const Room = () => {
     <div className="relative">
       <ToolBar
         handleSelectTool={setTool}
-        handleColor={setColor}
-        handleThickness={setThickness}
-        getThickness={thickness}
-        getColor={color}
         handleUndo={handleUndo}
         handleRedo={handleRedo}
         handleDelete={handleDelete}
         history={history}
         elements={elements}
+      />
+      <ToolProperties
+        handleColor={setColor}
+        handleThickness={setThickness}
+        getThickness={thickness}
+        getColor={color}
       />
       <WhiteBoard
         canvasRef={canvasRef}
