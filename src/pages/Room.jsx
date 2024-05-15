@@ -6,7 +6,8 @@ import ToolProperties from "../components/ToolProperties";
 const Room = () => {
   const [tool, setTool] = useState("pencil");
   const [color, setColor] = useState("#1e1e1e");
-  const [thickness, setThickness] = useState(4);
+  const [thickness, setThickness] = useState(2);
+  const [fill, setFill] = useState("");
   const [elements, setElements] = useState([]);
   const [history, setHistory] = useState([]);
 
@@ -62,6 +63,8 @@ const Room = () => {
         handleThickness={setThickness}
         getThickness={thickness}
         getColor={color}
+        handleFill={setFill}
+        getFill={fill}
       />
       <WhiteBoard
         canvasRef={canvasRef}
@@ -71,6 +74,7 @@ const Room = () => {
         color={color}
         thickness={thickness}
         tool={tool}
+        getFill={fill}
       />
     </div>
   );

@@ -11,6 +11,7 @@ const WhiteBoard = ({
   color,
   thickness,
   tool,
+  getFill,
 }) => {
   const [drawing, setDrawing] = useState(false);
 
@@ -51,6 +52,7 @@ const WhiteBoard = ({
           strokeWidth: element.strokeWidth,
           roughness: 2,
           seed: 5,
+          fill: element.fill,
         });
       } else if (element.type === "circle") {
         roughCanvas.circle(...element.path, {
@@ -58,6 +60,7 @@ const WhiteBoard = ({
           strokeWidth: element.strokeWidth,
           roughness: 0,
           seed: 0,
+          fill: element.fill,
         });
       }
     });
@@ -100,6 +103,7 @@ const WhiteBoard = ({
           path: [clientX, clientY],
           stroke: color,
           strokeWidth: thickness,
+          fill: getFill,
         },
       ]);
     } else if (tool == "circle") {
@@ -112,6 +116,7 @@ const WhiteBoard = ({
           path: [clientX, clientY],
           stroke: color,
           strokeWidth: thickness,
+          fill: getFill,
         },
       ]);
     }
