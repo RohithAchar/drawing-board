@@ -1,5 +1,17 @@
 import React, { useState } from "react";
 
+const TransparentDiv = () => {
+  return (
+    <>
+      <div className="absolute w-2 h-2 bg-slate-400"></div>
+      <div className="absolute w-2 h-2 bg-slate-400 left-2 top-2"></div>
+      <div className="absolute w-2 h-2 bg-slate-400 left-4 top-4"></div>
+      <div className="absolute w-2 h-2 bg-slate-400 left-4"></div>
+      <div className="absolute w-2 h-2 bg-slate-400 top-4"></div>
+    </>
+  );
+};
+
 const ToolProperties = ({
   handleColor,
   handleThickness,
@@ -9,9 +21,13 @@ const ToolProperties = ({
   getFill,
   handleBowing,
   getBowing,
+  handleFillStyle,
+  getFillStyle,
 }) => {
   const [selectedColorDiv, setSelectedColorDiv] = useState(1);
   const [selectedFillDiv, setSelectedFillDiv] = useState(1);
+  const [selectedFillStyleDiv, setSelectedFillStyleDiv] = useState(1);
+
   return (
     <div className="absolute top-52 border-2 bg-white">
       {/* STROKE */}
@@ -74,14 +90,16 @@ const ToolProperties = ({
         <p>Fill</p>
         <div className="flex flex-row">
           <div
-            className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[] ${
+            className={`relative m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[] ${
               selectedFillDiv === 1 && "outline outline-offset-2 outline-1"
             }`}
             onClick={() => {
               setSelectedFillDiv(1);
               handleFill("");
             }}
-          ></div>
+          >
+            <TransparentDiv />
+          </div>
           <div
             className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffc9c9] ${
               selectedFillDiv === 2 && "outline outline-offset-2 outline-1"
@@ -120,10 +138,74 @@ const ToolProperties = ({
           ></div>
           <div className="w-2"></div>
           <div
-            className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
-          ></div>
+            className={`relative m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
+          >
+            {selectedFillDiv === 1 && <TransparentDiv />}
+          </div>
         </div>
       </div>
+      {/* FILL STYLE */}
+      {selectedFillDiv > 1 && (
+        <div>
+          <p>Fill Style</p>
+          <div className="flex flex-row">
+            <div
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-black ${
+                selectedFillStyleDiv === 1 &&
+                "outline outline-offset-2 outline-1"
+              }`}
+              onClick={() => {
+                setSelectedFillStyleDiv(1);
+                handleFillStyle("solid");
+              }}
+            ></div>
+            <div
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffc9c9] ${
+                selectedFillStyleDiv === 2 &&
+                "outline outline-offset-2 outline-1"
+              }`}
+              onClick={() => {
+                setSelectedFillStyleDiv(2);
+                handleFillStyle("hachure");
+              }}
+            ></div>
+            <div
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#b2f2bb] ${
+                selectedFillStyleDiv === 3 &&
+                "outline outline-offset-2 outline-1"
+              }`}
+              onClick={() => {
+                setSelectedFillStyleDiv(3);
+                handleFillStyle("zigzag");
+              }}
+            ></div>
+            <div
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#a5d8ff] ${
+                selectedFillStyleDiv === 4 &&
+                "outline outline-offset-2 outline-1"
+              }`}
+              onClick={() => {
+                setSelectedFillStyleDiv(4);
+                handleFillStyle("cross-hatch");
+              }}
+            ></div>
+            <div
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffec99] ${
+                selectedFillStyleDiv === 5 &&
+                "outline outline-offset-2 outline-1"
+              }`}
+              onClick={() => {
+                setSelectedFillStyleDiv(5);
+                handleFillStyle("dashed");
+              }}
+            ></div>
+            <div className="w-2"></div>
+            <div
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
+            ></div>
+          </div>
+        </div>
+      )}
       {/* THICKNESS */}
       <div>
         <p>Thickness</p>
