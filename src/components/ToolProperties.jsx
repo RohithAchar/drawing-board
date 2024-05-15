@@ -122,6 +122,18 @@ const ToolProperties = ({
           ></div>
         </div>
       </div>
+      {/* THICKNESS */}
+      <div>
+        <p>Thickness</p>
+        <input
+          type="range"
+          min={1}
+          max="10"
+          value={getThickness}
+          className="range range-xs"
+          onChange={(e) => handleThickness(e.target.value)}
+        />
+      </div>
     </div>
   );
 };
