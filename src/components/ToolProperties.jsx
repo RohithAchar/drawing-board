@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+// Backgrounds
 const TransparentDiv = () => {
   return (
     <>
@@ -9,6 +10,91 @@ const TransparentDiv = () => {
       <div className="absolute w-2 h-2 bg-slate-400 left-4"></div>
       <div className="absolute w-2 h-2 bg-slate-400 top-4"></div>
     </>
+  );
+};
+const HatchPattern = () => (
+  <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern
+        id="hatchPattern"
+        patternUnits="userSpaceOnUse"
+        width="8"
+        height="8"
+      >
+        <path
+          d="M-1,1 l2,-2 M0,8 l8,-8 M7,9 l2,-2"
+          stroke="black"
+          stroke-width="1"
+        />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#hatchPattern)" />
+  </svg>
+);
+const ZigzagPattern = () => (
+  <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <pattern
+        id="zigzagPattern"
+        patternUnits="userSpaceOnUse"
+        width="10"
+        height="10"
+      >
+        <path
+          d="M0 10 l20 -10 l20 10 l20 -10 l20 10"
+          stroke="black"
+          strokeWidth="2"
+          fill="none"
+        />
+      </pattern>
+    </defs>
+    <rect width="100%" height="100%" fill="url(#zigzagPattern)" />
+  </svg>
+);
+const CrossHatchPattern = () => {
+  return (
+    <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern
+          id="crossHatchPattern"
+          patternUnits="userSpaceOnUse"
+          width="10"
+          height="10"
+        >
+          <path
+            d="M-1,1 l2,-2 M0,8 l8,-8 M7,9 l2,-2 M-1,9 l2,-2 M0,2 l8,8 M7,1 l2,-2"
+            stroke="black"
+            strokeWidth="1"
+          />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#crossHatchPattern)" />
+    </svg>
+  );
+};
+const Dashed = () => {
+  return (
+    <svg width="100" height="100" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <pattern
+          id="dashedPattern"
+          patternUnits="userSpaceOnUse"
+          width="8"
+          height="8"
+        >
+          <line
+            x1="0"
+            y1="4"
+            x2="8"
+            y2="4"
+            stroke="black"
+            strokeWidth="2"
+            strokeDasharray="4,2"
+          />
+        </pattern>
+      </defs>
+      <rect width="100%" height="100%" fill="url(#dashedPattern)" />
+    </svg>
   );
 };
 
@@ -150,7 +236,7 @@ const ToolProperties = ({
           <p>Fill Style</p>
           <div className="flex flex-row">
             <div
-              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-black ${
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
                 selectedFillStyleDiv === 1 &&
                 "outline outline-offset-2 outline-1"
               }`}
@@ -160,7 +246,7 @@ const ToolProperties = ({
               }}
             ></div>
             <div
-              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffc9c9] ${
+              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
                 selectedFillStyleDiv === 2 &&
                 "outline outline-offset-2 outline-1"
               }`}
@@ -168,9 +254,11 @@ const ToolProperties = ({
                 setSelectedFillStyleDiv(2);
                 handleFillStyle("hachure");
               }}
-            ></div>
+            >
+              <HatchPattern />
+            </div>
             <div
-              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#b2f2bb] ${
+              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
                 selectedFillStyleDiv === 3 &&
                 "outline outline-offset-2 outline-1"
               }`}
@@ -178,9 +266,11 @@ const ToolProperties = ({
                 setSelectedFillStyleDiv(3);
                 handleFillStyle("zigzag");
               }}
-            ></div>
+            >
+              <ZigzagPattern />
+            </div>
             <div
-              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#a5d8ff] ${
+              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
                 selectedFillStyleDiv === 4 &&
                 "outline outline-offset-2 outline-1"
               }`}
@@ -188,9 +278,11 @@ const ToolProperties = ({
                 setSelectedFillStyleDiv(4);
                 handleFillStyle("cross-hatch");
               }}
-            ></div>
+            >
+              <CrossHatchPattern />
+            </div>
             <div
-              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffec99] ${
+              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
                 selectedFillStyleDiv === 5 &&
                 "outline outline-offset-2 outline-1"
               }`}
@@ -198,11 +290,19 @@ const ToolProperties = ({
                 setSelectedFillStyleDiv(5);
                 handleFillStyle("dashed");
               }}
-            ></div>
+            >
+              <Dashed />
+            </div>
             <div className="w-2"></div>
             <div
-              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
-            ></div>
+              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
+            >
+              {selectedFillStyleDiv === 1 && ""}
+              {selectedFillStyleDiv === 2 && <HatchPattern />}
+              {selectedFillStyleDiv === 3 && <ZigzagPattern />}
+              {selectedFillStyleDiv === 4 && <CrossHatchPattern />}
+              {selectedFillStyleDiv === 5 && <Dashed />}
+            </div>
           </div>
         </div>
       )}

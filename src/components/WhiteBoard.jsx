@@ -16,7 +16,7 @@ const WhiteBoard = ({
   getFillStyle,
 }) => {
   const [drawing, setDrawing] = useState(false);
-
+  console.log(elements);
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
