@@ -8,6 +8,7 @@ const Room = () => {
   const [color, setColor] = useState("#1e1e1e");
   const [thickness, setThickness] = useState(2);
   const [fill, setFill] = useState("");
+  const [bowing, setBowing] = useState(1);
   const [elements, setElements] = useState([]);
   const [history, setHistory] = useState([]);
 
@@ -65,6 +66,8 @@ const Room = () => {
         getColor={color}
         handleFill={setFill}
         getFill={fill}
+        handleBowing={setBowing}
+        getBowing={bowing}
       />
       <WhiteBoard
         canvasRef={canvasRef}
@@ -75,6 +78,7 @@ const Room = () => {
         thickness={thickness}
         tool={tool}
         getFill={fill}
+        getBowing={bowing}
       />
     </div>
   );

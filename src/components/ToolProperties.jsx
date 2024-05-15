@@ -7,6 +7,8 @@ const ToolProperties = ({
   getColor,
   handleFill,
   getFill,
+  handleBowing,
+  getBowing,
 }) => {
   const [selectedColorDiv, setSelectedColorDiv] = useState(1);
   const [selectedFillDiv, setSelectedFillDiv] = useState(1);
@@ -132,6 +134,18 @@ const ToolProperties = ({
           value={getThickness}
           className="range range-xs"
           onChange={(e) => handleThickness(e.target.value)}
+        />
+      </div>
+      {/* Bowing */}
+      <div>
+        <p>Bowing</p>
+        <input
+          type="range"
+          min={0}
+          max="5"
+          value={getBowing}
+          className="range range-xs"
+          onChange={(e) => handleBowing(e.target.value)}
         />
       </div>
     </div>
