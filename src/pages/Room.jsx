@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import ToolBar from "../components/ToolBar";
 import WhiteBoard from "../components/WhiteBoard";
 import ToolProperties from "../components/ToolProperties";
+import ToolBarToggleBtn from "../components/ToolBarToggleBtn";
 
 const Room = () => {
   const [tool, setTool] = useState("pencil");
@@ -9,7 +10,6 @@ const Room = () => {
   const [thickness, setThickness] = useState(2);
   const [fill, setFill] = useState("");
   const [fillStyle, setFillStyle] = useState("solid");
-  const [bowing, setBowing] = useState(1);
   const [elements, setElements] = useState([]);
   const [history, setHistory] = useState([]);
 
@@ -67,8 +67,6 @@ const Room = () => {
         getColor={color}
         handleFill={setFill}
         getFill={fill}
-        handleBowing={setBowing}
-        getBowing={bowing}
         handleFillStyle={setFillStyle}
         getFillStyle={fillStyle}
       />
@@ -81,9 +79,9 @@ const Room = () => {
         thickness={thickness}
         tool={tool}
         getFill={fill}
-        getBowing={bowing}
         getFillStyle={fillStyle}
       />
+      <ToolBarToggleBtn />
     </div>
   );
 };

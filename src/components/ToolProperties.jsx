@@ -4,9 +4,9 @@ import React, { useState } from "react";
 const TransparentDiv = () => {
   return (
     <>
-      <div className="absolute w-2 h-2 bg-slate-400"></div>
-      <div className="absolute w-2 h-2 bg-slate-400 left-2 top-2"></div>
-      <div className="absolute w-2 h-2 bg-slate-400 left-4 top-4"></div>
+      <div className="absolute w-2 h-2 bg-slate-500"></div>
+      <div className="absolute w-2 h-2 bg-slate-300 left-2 top-2"></div>
+      <div className="absolute w-2 h-2 bg-slate-300 left-4 top-4"></div>
       <div className="absolute w-2 h-2 bg-slate-400 left-4"></div>
       <div className="absolute w-2 h-2 bg-slate-400 top-4"></div>
     </>
@@ -105,8 +105,6 @@ const ToolProperties = ({
   getColor,
   handleFill,
   getFill,
-  handleBowing,
-  getBowing,
   handleFillStyle,
   getFillStyle,
 }) => {
@@ -115,7 +113,7 @@ const ToolProperties = ({
   const [selectedFillStyleDiv, setSelectedFillStyleDiv] = useState(1);
 
   return (
-    <div className="absolute left-4 top-52 border-2 bg-white p-4 rounded-lg shadow-lg">
+    <div className="absolute left-6 top-28 border-2 bg-white p-4 rounded-lg">
       {/* STROKE */}
       <div className="mb-4 mt-4">
         <p className="text-xs m-0.5">Stroke</p>
@@ -316,18 +314,6 @@ const ToolProperties = ({
           value={getThickness}
           className="range range-xs m-0.5"
           onChange={(e) => handleThickness(e.target.value)}
-        />
-      </div>
-      {/* Bowing */}
-      <div className="mb-4">
-        <p className="text-xs m-0.5">Bowing</p>
-        <input
-          type="range"
-          min={0}
-          max="5"
-          value={getBowing}
-          className="range range-xs m-0.5"
-          onChange={(e) => handleBowing(e.target.value)}
         />
       </div>
     </div>

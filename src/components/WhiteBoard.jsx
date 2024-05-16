@@ -12,7 +12,6 @@ const WhiteBoard = ({
   thickness,
   tool,
   getFill,
-  getBowing,
   getFillStyle,
 }) => {
   const [drawing, setDrawing] = useState(false);
@@ -53,7 +52,7 @@ const WhiteBoard = ({
           stroke: element.stroke,
           strokeWidth: element.strokeWidth,
           roughness: 2,
-          seed: 5,
+          seed: 10,
           fill: element.fill,
           bowing: element.bowing,
           fillStyle: element.fillStyle,

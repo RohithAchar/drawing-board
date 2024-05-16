@@ -20,7 +20,7 @@ const ToolBar = ({
 }) => {
   const [selectedDiv, setSelectedDiv] = useState(1);
   return (
-    <div className="absolute bg-white top-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  w-[700px] h-[60px] shadow-2xl rounded-lg mt-10 mx-auto flex justify-around align-center items-center px-4 z-20">
+    <div className="absolute top-2 left-1/2 transform -translate-x-1/2 -translate-y-1/2  w-[500px] h-[60px] border-2 shadow-2xl rounded-lg mt-10 mx-auto flex justify-around align-center items-center px-4 z-20">
       <div className="flex gap-3">
         <div
           className={`border-2 h-[40px] w-[40px] rounded-lg cursor-pointer ${
