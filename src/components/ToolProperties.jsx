@@ -115,10 +115,10 @@ const ToolProperties = ({
   const [selectedFillStyleDiv, setSelectedFillStyleDiv] = useState(1);
 
   return (
-    <div className="absolute top-52 border-2 bg-white">
+    <div className="absolute left-4 top-52 border-2 bg-white p-4 rounded-lg shadow-lg">
       {/* STROKE */}
-      <div>
-        <p>Stroke</p>
+      <div className="mb-4 mt-4">
+        <p className="text-xs m-0.5">Stroke</p>
         <div className="flex flex-row">
           <div
             className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#1e1e1e] ${
@@ -172,11 +172,11 @@ const ToolProperties = ({
         </div>
       </div>
       {/* FILL */}
-      <div>
-        <p>Fill</p>
+      <div className="mb-4">
+        <p className="text-xs m-0.5">Fill</p>
         <div className="flex flex-row">
           <div
-            className={`relative m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[] ${
+            className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[] ${
               selectedFillDiv === 1 && "outline outline-offset-2 outline-1"
             }`}
             onClick={() => {
@@ -232,8 +232,8 @@ const ToolProperties = ({
       </div>
       {/* FILL STYLE */}
       {selectedFillDiv > 1 && (
-        <div>
-          <p>Fill Style</p>
+        <div className="mb-4">
+          <p className="text-xs m-0.5">Fill Style</p>
           <div className="flex flex-row">
             <div
               className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
@@ -307,26 +307,26 @@ const ToolProperties = ({
         </div>
       )}
       {/* THICKNESS */}
-      <div>
-        <p>Thickness</p>
+      <div className="mb-4">
+        <p className="text-xs m-0.5">Thickness</p>
         <input
           type="range"
           min={1}
           max="10"
           value={getThickness}
-          className="range range-xs"
+          className="range range-xs m-0.5"
           onChange={(e) => handleThickness(e.target.value)}
         />
       </div>
       {/* Bowing */}
-      <div>
-        <p>Bowing</p>
+      <div className="mb-4">
+        <p className="text-xs m-0.5">Bowing</p>
         <input
           type="range"
           min={0}
           max="5"
           value={getBowing}
-          className="range range-xs"
+          className="range range-xs m-0.5"
           onChange={(e) => handleBowing(e.target.value)}
         />
       </div>
