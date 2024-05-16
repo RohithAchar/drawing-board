@@ -118,7 +118,7 @@ const ToolProperties = ({
     <div className="absolute left-6 top-28 border-2 bg-white p-4 rounded-lg">
       {/* STROKE */}
       <div className="mb-4 mt-4">
-        <p className="text-xs m-0.5">Stroke</p>
+        <p className="text-xs m-0.5 select-none">Stroke</p>
         <div className="flex flex-row">
           <div
             className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#1e1e1e] ${
@@ -173,7 +173,7 @@ const ToolProperties = ({
       </div>
       {/* THICKNESS */}
       <div className="mb-4">
-        <p className="text-xs m-0.5">
+        <p className="text-xs m-0.5 select-none">
           {selectedTool == "text" ? "Font size" : "Thickness"}
         </p>
         <input
@@ -188,7 +188,7 @@ const ToolProperties = ({
       {/* FILL */}
       {(selectedTool == "rectangle" || selectedTool == "circle") && (
         <div className="mb-4">
-          <p className="text-xs m-0.5">Fill</p>
+          <p className="text-xs m-0.5 select-none">Fill</p>
           <div className="flex flex-row">
             <div
               className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[] ${
@@ -252,7 +252,7 @@ const ToolProperties = ({
           <>
             {/* FILL STYLE */}
             <div className="mb-4">
-              <p className="text-xs m-0.5">Fill Style</p>
+              <p className="text-xs m-0.5 select-none">Fill Style</p>
               <div className="flex flex-row">
                 <div
                   className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
@@ -326,7 +326,7 @@ const ToolProperties = ({
             </div>
             {/* Fill weight */}
             <div className="mb-4">
-              <p className="text-xs m-0.5">Fill Weight</p>
+              <p className="text-xs m-0.5 select-none">Fill Weight</p>
               <input
                 type="range"
                 min={0}
