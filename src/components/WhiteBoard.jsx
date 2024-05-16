@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import rough from "roughjs";
 
-const roughGenerator = rough.generator();
-
 const WhiteBoard = ({
   canvasRef,
   ctxRef,
@@ -208,7 +206,7 @@ const WhiteBoard = ({
         ...previous,
         {
           type: "text",
-          font: "30px Arial",
+          font: "30px Caveat",
           text: "",
           clientX,
           clientY,
@@ -219,6 +217,15 @@ const WhiteBoard = ({
   const handleKeyDown = (e) => {
     if (isText) {
       const lastTextIndex = elements.length - 1;
+      if (e.key == "Backspace") {
+        setElements((previousEle) => {
+          return previousEle.map((ele, index) => {
+            if (index == lastTextIndex) {
+              return { ...ele, text: ele.text.slice(0, -1) };
+            } else return ele;
+          });
+        });
+      }
       if (e.key.length !== 1) return;
       setElements((previousEle) => {
         return previousEle.map((ele, index) => {
