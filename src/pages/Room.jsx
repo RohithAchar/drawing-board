@@ -13,6 +13,7 @@ const Room = () => {
   const [fillWeight, setFillWeight] = useState(1);
   const [elements, setElements] = useState([]);
   const [history, setHistory] = useState([]);
+  const [isToolPropertyOpen, setIsToolPropertyOpen] = useState(true);
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
@@ -60,19 +61,22 @@ const Room = () => {
         handleDelete={handleDelete}
         history={history}
         elements={elements}
+        handleToolBarToggleBtn={setIsToolPropertyOpen}
       />
-      <ToolProperties
-        handleColor={setColor}
-        handleThickness={setThickness}
-        getThickness={thickness}
-        getColor={color}
-        handleFill={setFill}
-        getFill={fill}
-        handleFillStyle={setFillStyle}
-        getFillStyle={fillStyle}
-        getFillWeight={fillWeight}
-        handleFillWeight={setFillWeight}
-      />
+      {isToolPropertyOpen && (
+        <ToolProperties
+          handleColor={setColor}
+          handleThickness={setThickness}
+          getThickness={thickness}
+          getColor={color}
+          handleFill={setFill}
+          getFill={fill}
+          handleFillStyle={setFillStyle}
+          getFillStyle={fillStyle}
+          getFillWeight={fillWeight}
+          handleFillWeight={setFillWeight}
+        />
+      )}
       <WhiteBoard
         canvasRef={canvasRef}
         ctxRef={ctxRef}
@@ -85,7 +89,10 @@ const Room = () => {
         getFillStyle={fillStyle}
         getFillWeight={fillWeight}
       />
-      <ToolBarToggleBtn />
+      <ToolBarToggleBtn
+        handleToggle={setIsToolPropertyOpen}
+        isOpen={isToolPropertyOpen}
+      />
     </div>
   );
 };

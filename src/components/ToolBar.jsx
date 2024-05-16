@@ -17,6 +17,7 @@ const ToolBar = ({
   handleDelete,
   history,
   elements,
+  handleToolBarToggleBtn,
 }) => {
   const [selectedDiv, setSelectedDiv] = useState(1);
   return (
@@ -29,6 +30,7 @@ const ToolBar = ({
           onClick={() => {
             handleSelectTool("pencil");
             setSelectedDiv(1);
+            handleToolBarToggleBtn(true);
           }}
         >
           <FontAwesomeIcon className="ml-2 mt-2" icon={faPencil} size="lg" />
@@ -40,6 +42,7 @@ const ToolBar = ({
           onClick={() => {
             handleSelectTool("line");
             setSelectedDiv(2);
+            handleToolBarToggleBtn(true);
           }}
         >
           {" "}
@@ -52,6 +55,7 @@ const ToolBar = ({
           onClick={() => {
             handleSelectTool("rectangle");
             setSelectedDiv(3);
+            handleToolBarToggleBtn(true);
           }}
         >
           <FontAwesomeIcon
@@ -67,6 +71,7 @@ const ToolBar = ({
           onClick={() => {
             handleSelectTool("circle");
             setSelectedDiv(4);
+            handleToolBarToggleBtn(true);
           }}
         >
           <FontAwesomeIcon className="ml-2 mt-2" icon={faCircle} size="lg" />
