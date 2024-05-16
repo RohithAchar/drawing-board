@@ -71,6 +71,7 @@ const WhiteBoard = ({
           fillWeight: element.fillWeight,
         });
       } else if (element.type === "text") {
+        ctxRef.current.fillStyle = element.color;
         ctxRef.current.font = element.font;
         ctxRef.current.fillText(element.text, element.clientX, element.clientY);
       }
@@ -206,7 +207,8 @@ const WhiteBoard = ({
         ...previous,
         {
           type: "text",
-          font: "30px Caveat",
+          font: `${thickness}rem Caveat`,
+          color: color,
           text: "",
           clientX,
           clientY,

@@ -108,6 +108,7 @@ const ToolProperties = ({
   handleFillStyle,
   handleFillWeight,
   getFillWeight,
+  selectedTool,
 }) => {
   const [selectedColorDiv, setSelectedColorDiv] = useState(1);
   const [selectedFillDiv, setSelectedFillDiv] = useState(1);
@@ -172,7 +173,9 @@ const ToolProperties = ({
       </div>
       {/* THICKNESS */}
       <div className="mb-4">
-        <p className="text-xs m-0.5">Thickness</p>
+        <p className="text-xs m-0.5">
+          {selectedTool == "text" ? "Font size" : "Thickness"}
+        </p>
         <input
           type="range"
           min={1}
@@ -183,152 +186,158 @@ const ToolProperties = ({
         />
       </div>
       {/* FILL */}
-      <div className="mb-4">
-        <p className="text-xs m-0.5">Fill</p>
-        <div className="flex flex-row">
-          <div
-            className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[] ${
-              selectedFillDiv === 1 && "outline outline-offset-2 outline-1"
-            }`}
-            onClick={() => {
-              setSelectedFillDiv(1);
-              handleFill("");
-            }}
-          >
-            <TransparentDiv />
-          </div>
-          <div
-            className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffc9c9] ${
-              selectedFillDiv === 2 && "outline outline-offset-2 outline-1"
-            }`}
-            onClick={() => {
-              setSelectedFillDiv(2);
-              handleFill("#ffc9c9");
-            }}
-          ></div>
-          <div
-            className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#b2f2bb] ${
-              selectedFillDiv === 3 && "outline outline-offset-2 outline-1"
-            }`}
-            onClick={() => {
-              setSelectedFillDiv(3);
-              handleFill("#b2f2bb");
-            }}
-          ></div>
-          <div
-            className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#a5d8ff] ${
-              selectedFillDiv === 4 && "outline outline-offset-2 outline-1"
-            }`}
-            onClick={() => {
-              setSelectedFillDiv(4);
-              handleFill("#a5d8ff");
-            }}
-          ></div>
-          <div
-            className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffec99] ${
-              selectedFillDiv === 5 && "outline outline-offset-2 outline-1"
-            }`}
-            onClick={() => {
-              setSelectedFillDiv(5);
-              handleFill("#ffec99");
-            }}
-          ></div>
-          <div className="w-2"></div>
-          <div
-            className={`relative m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
-          >
-            {selectedFillDiv === 1 && <TransparentDiv />}
-          </div>
-        </div>
-      </div>
-      {/* FILL STYLE */}
-      {selectedFillDiv > 1 && (
+      {(selectedTool == "rectangle" || selectedTool == "circle") && (
         <div className="mb-4">
-          <p className="text-xs m-0.5">Fill Style</p>
+          <p className="text-xs m-0.5">Fill</p>
           <div className="flex flex-row">
             <div
-              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
-                selectedFillStyleDiv === 1 &&
-                "outline outline-offset-2 outline-1"
+              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[] ${
+                selectedFillDiv === 1 && "outline outline-offset-2 outline-1"
               }`}
               onClick={() => {
-                setSelectedFillStyleDiv(1);
-                handleFillStyle("solid");
+                setSelectedFillDiv(1);
+                handleFill("");
+              }}
+            >
+              <TransparentDiv />
+            </div>
+            <div
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffc9c9] ${
+                selectedFillDiv === 2 && "outline outline-offset-2 outline-1"
+              }`}
+              onClick={() => {
+                setSelectedFillDiv(2);
+                handleFill("#ffc9c9");
               }}
             ></div>
             <div
-              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
-                selectedFillStyleDiv === 2 &&
-                "outline outline-offset-2 outline-1"
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#b2f2bb] ${
+                selectedFillDiv === 3 && "outline outline-offset-2 outline-1"
               }`}
               onClick={() => {
-                setSelectedFillStyleDiv(2);
-                handleFillStyle("hachure");
+                setSelectedFillDiv(3);
+                handleFill("#b2f2bb");
               }}
-            >
-              <HatchPattern />
-            </div>
+            ></div>
             <div
-              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
-                selectedFillStyleDiv === 3 &&
-                "outline outline-offset-2 outline-1"
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#a5d8ff] ${
+                selectedFillDiv === 4 && "outline outline-offset-2 outline-1"
               }`}
               onClick={() => {
-                setSelectedFillStyleDiv(3);
-                handleFillStyle("zigzag");
+                setSelectedFillDiv(4);
+                handleFill("#a5d8ff");
               }}
-            >
-              <ZigzagPattern />
-            </div>
+            ></div>
             <div
-              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
-                selectedFillStyleDiv === 4 &&
-                "outline outline-offset-2 outline-1"
+              className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[#ffec99] ${
+                selectedFillDiv === 5 && "outline outline-offset-2 outline-1"
               }`}
               onClick={() => {
-                setSelectedFillStyleDiv(4);
-                handleFillStyle("cross-hatch");
+                setSelectedFillDiv(5);
+                handleFill("#ffec99");
               }}
-            >
-              <CrossHatchPattern />
-            </div>
-            <div
-              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
-                selectedFillStyleDiv === 5 &&
-                "outline outline-offset-2 outline-1"
-              }`}
-              onClick={() => {
-                setSelectedFillStyleDiv(5);
-                handleFillStyle("dashed");
-              }}
-            >
-              <Dashed />
-            </div>
+            ></div>
             <div className="w-2"></div>
             <div
-              className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
+              className={`relative m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
             >
-              {selectedFillStyleDiv === 1 && ""}
-              {selectedFillStyleDiv === 2 && <HatchPattern />}
-              {selectedFillStyleDiv === 3 && <ZigzagPattern />}
-              {selectedFillStyleDiv === 4 && <CrossHatchPattern />}
-              {selectedFillStyleDiv === 5 && <Dashed />}
+              {selectedFillDiv === 1 && <TransparentDiv />}
             </div>
           </div>
         </div>
       )}
-      {/* Fill weight */}
-      <div className="mb-4">
-        <p className="text-xs m-0.5">Fill Weight</p>
-        <input
-          type="range"
-          min={0}
-          max="5"
-          value={getFillWeight}
-          className="range range-xs m-0.5"
-          onChange={(e) => handleFillWeight(e.target.value)}
-        />
-      </div>
+
+      {(selectedTool == "rectangle" || selectedTool == "circle") &&
+        selectedFillDiv > 1 && (
+          <>
+            {/* FILL STYLE */}
+            <div className="mb-4">
+              <p className="text-xs m-0.5">Fill Style</p>
+              <div className="flex flex-row">
+                <div
+                  className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
+                    selectedFillStyleDiv === 1 &&
+                    "outline outline-offset-2 outline-1"
+                  }`}
+                  onClick={() => {
+                    setSelectedFillStyleDiv(1);
+                    handleFillStyle("solid");
+                  }}
+                ></div>
+                <div
+                  className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
+                    selectedFillStyleDiv === 2 &&
+                    "outline outline-offset-2 outline-1"
+                  }`}
+                  onClick={() => {
+                    setSelectedFillStyleDiv(2);
+                    handleFillStyle("hachure");
+                  }}
+                >
+                  <HatchPattern />
+                </div>
+                <div
+                  className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
+                    selectedFillStyleDiv === 3 &&
+                    "outline outline-offset-2 outline-1"
+                  }`}
+                  onClick={() => {
+                    setSelectedFillStyleDiv(3);
+                    handleFillStyle("zigzag");
+                  }}
+                >
+                  <ZigzagPattern />
+                </div>
+                <div
+                  className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
+                    selectedFillStyleDiv === 4 &&
+                    "outline outline-offset-2 outline-1"
+                  }`}
+                  onClick={() => {
+                    setSelectedFillStyleDiv(4);
+                    handleFillStyle("cross-hatch");
+                  }}
+                >
+                  <CrossHatchPattern />
+                </div>
+                <div
+                  className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}] ${
+                    selectedFillStyleDiv === 5 &&
+                    "outline outline-offset-2 outline-1"
+                  }`}
+                  onClick={() => {
+                    setSelectedFillStyleDiv(5);
+                    handleFillStyle("dashed");
+                  }}
+                >
+                  <Dashed />
+                </div>
+                <div className="w-2"></div>
+                <div
+                  className={`relative overflow-hidden m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getFill}]`}
+                >
+                  {selectedFillStyleDiv === 1 && ""}
+                  {selectedFillStyleDiv === 2 && <HatchPattern />}
+                  {selectedFillStyleDiv === 3 && <ZigzagPattern />}
+                  {selectedFillStyleDiv === 4 && <CrossHatchPattern />}
+                  {selectedFillStyleDiv === 5 && <Dashed />}
+                </div>
+              </div>
+            </div>
+            {/* Fill weight */}
+            <div className="mb-4">
+              <p className="text-xs m-0.5">Fill Weight</p>
+              <input
+                type="range"
+                min={0}
+                max="5"
+                value={getFillWeight}
+                className="range range-xs m-0.5"
+                onChange={(e) => handleFillWeight(e.target.value)}
+              />
+            </div>
+          </>
+        )}
     </div>
   );
 };

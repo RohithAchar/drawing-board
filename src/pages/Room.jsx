@@ -75,6 +75,7 @@ const Room = () => {
           getFillStyle={fillStyle}
           getFillWeight={fillWeight}
           handleFillWeight={setFillWeight}
+          selectedTool={tool}
         />
       )}
       <WhiteBoard
