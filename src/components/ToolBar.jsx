@@ -76,6 +76,31 @@ const ToolBar = ({
         >
           <FontAwesomeIcon className="ml-2 mt-2" icon={faCircle} size="lg" />
         </div>
+        <div
+          className={`border-2 h-[40px] w-[40px] rounded-lg cursor-pointer ${
+            selectedDiv === 5 && "bg-neutral text-white"
+          }`}
+          onClick={() => {
+            handleSelectTool("text");
+            setSelectedDiv(5);
+          }}
+        >
+          <svg
+            className="mt-1.5 ml-1.5"
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            width="24"
+            height="24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="5"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <line x1="12" y1="2" x2="12" y2="22" />
+            <line x1="6" y1="2" x2="18" y2="2" />
+          </svg>
+        </div>
       </div>
       <div className="flex gap-3">
         <div

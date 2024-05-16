@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import rough from "roughjs";
+import BlinkingCursor from "./BlinkingCursor";
 
 const roughGenerator = rough.generator();
 
@@ -16,7 +17,9 @@ const WhiteBoard = ({
   getFillWeight,
 }) => {
   const [drawing, setDrawing] = useState(false);
-  console.log(elements);
+  const [isText, setIsText] = useState(false);
+  const [cursor, setCursor] = useState("cursor-crosshair");
+
   useEffect(() => {
     const canvas = canvasRef.current;
     const ctx = canvas.getContext("2d");
@@ -70,12 +73,17 @@ const WhiteBoard = ({
           fillStyle: element.fillStyle,
           fillWeight: element.fillWeight,
         });
+      } else if (element.type === "text") {
+        ctxRef.current.font = element.font;
+        ctxRef.current.fillText(element.text, element.clientX, element.clientY);
       }
     });
   }, [elements]);
 
   const handleMouseDown = (e) => {
     setDrawing(true);
+    setCursor("cursor-crosshair");
+    setIsText(false);
     const { clientX, clientY } = e;
     if (tool == "pencil") {
       setElements((previous) => [
@@ -191,17 +199,54 @@ const WhiteBoard = ({
   const handleMouseUp = (e) => {
     setDrawing(false);
   };
+  const handleDoubleClick = (e) => {
+    if (tool == "text" && isText) setIsText(false);
+    if (tool == "text") {
+      setCursor("cursor-text");
+      setIsText(true);
+      const { clientX, clientY } = e;
+      setElements((previous) => [
+        ...previous,
+        {
+          type: "text",
+          font: "30px Arial",
+          text: "",
+          clientX,
+          clientY,
+        },
+      ]);
+    }
+  };
+  const handleKeyDown = (e) => {
+    if (isText) {
+      const lastTextIndex = elements.length - 1;
+      if (e.key.length !== 1) return;
+      setElements((previousEle) => {
+        return previousEle.map((ele, index) => {
+          if (index == lastTextIndex) {
+            return { ...ele, text: ele.text + e.key };
+          } else return ele;
+        });
+      });
+    }
+  };
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="z-[-10]"
-      width={window.innerWidth}
-      height={window.innerHeight}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onMouseMove={handleMouseMove}
-    ></canvas>
+    <>
+      <BlinkingCursor x={100} y={100} />
+      <canvas
+        tabIndex={0}
+        ref={canvasRef}
+        className={`z-[-10] ${cursor}`}
+        width={window.innerWidth}
+        height={window.innerHeight}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onMouseMove={handleMouseMove}
+        onKeyDown={handleKeyDown}
+        onDoubleClick={handleDoubleClick}
+      ></canvas>
+    </>
   );
 };
 
