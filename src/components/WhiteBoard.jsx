@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import rough from "roughjs";
-import BlinkingCursor from "./BlinkingCursor";
 
 const roughGenerator = rough.generator();
 
@@ -233,7 +232,6 @@ const WhiteBoard = ({
 
   return (
     <>
-      <BlinkingCursor x={100} y={100} />
       <canvas
         tabIndex={0}
         ref={canvasRef}
