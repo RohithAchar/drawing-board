@@ -10,6 +10,7 @@ const Room = () => {
   const [thickness, setThickness] = useState(2);
   const [fill, setFill] = useState("");
   const [fillStyle, setFillStyle] = useState("solid");
+  const [fillWeight, setFillWeight] = useState(1);
   const [elements, setElements] = useState([]);
   const [history, setHistory] = useState([]);
 
@@ -69,6 +70,8 @@ const Room = () => {
         getFill={fill}
         handleFillStyle={setFillStyle}
         getFillStyle={fillStyle}
+        getFillWeight={fillWeight}
+        handleFillWeight={setFillWeight}
       />
       <WhiteBoard
         canvasRef={canvasRef}
@@ -80,6 +83,7 @@ const Room = () => {
         tool={tool}
         getFill={fill}
         getFillStyle={fillStyle}
+        getFillWeight={fillWeight}
       />
       <ToolBarToggleBtn />
     </div>

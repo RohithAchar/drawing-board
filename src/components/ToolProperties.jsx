@@ -106,7 +106,8 @@ const ToolProperties = ({
   handleFill,
   getFill,
   handleFillStyle,
-  getFillStyle,
+  handleFillWeight,
+  getFillWeight,
 }) => {
   const [selectedColorDiv, setSelectedColorDiv] = useState(1);
   const [selectedFillDiv, setSelectedFillDiv] = useState(1);
@@ -168,6 +169,18 @@ const ToolProperties = ({
             className={`m-1 h-[25px] w-[25px] rounded-md cursor-pointer bg-[${getColor}]`}
           ></div>
         </div>
+      </div>
+      {/* THICKNESS */}
+      <div className="mb-4">
+        <p className="text-xs m-0.5">Thickness</p>
+        <input
+          type="range"
+          min={1}
+          max="10"
+          value={getThickness}
+          className="range range-xs m-0.5"
+          onChange={(e) => handleThickness(e.target.value)}
+        />
       </div>
       {/* FILL */}
       <div className="mb-4">
@@ -304,16 +317,16 @@ const ToolProperties = ({
           </div>
         </div>
       )}
-      {/* THICKNESS */}
+      {/* Fill weight */}
       <div className="mb-4">
-        <p className="text-xs m-0.5">Thickness</p>
+        <p className="text-xs m-0.5">Fill Weight</p>
         <input
           type="range"
-          min={1}
-          max="10"
-          value={getThickness}
+          min={0}
+          max="5"
+          value={getFillWeight}
           className="range range-xs m-0.5"
-          onChange={(e) => handleThickness(e.target.value)}
+          onChange={(e) => handleFillWeight(e.target.value)}
         />
       </div>
     </div>
