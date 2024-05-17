@@ -90,10 +90,10 @@ const Room = () => {
         getFillStyle={fillStyle}
         getFillWeight={fillWeight}
       />
-      <ToolBarToggleBtn
+      {/* <ToolBarToggleBtn
         handleToggle={setIsToolPropertyOpen}
         isOpen={isToolPropertyOpen}
-      />
+      /> */}
     </div>
   );
 };
