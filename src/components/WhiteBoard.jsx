@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import rough from "roughjs";
 
 const WhiteBoard = ({
@@ -23,7 +23,7 @@ const WhiteBoard = ({
     ctxRef.current = ctx;
   }, []);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const roughCanvas = rough.canvas(canvasRef.current);
     if (elements.length > 0) {
       ctxRef.current.clearRect(
