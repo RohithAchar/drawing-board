@@ -1,12 +1,14 @@
 import { useState } from "react";
 import Form from "../components/Form";
 import { v4 as uuidv4 } from "uuid";
+import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Login = ({ socket, setUser }) => {
   const [hostName, setHostName] = useState("");
   const [joinName, setJoinName] = useState("");
   const [joinInput, setJoinInput] = useState("");
   const [roomId, setRoomId] = useState(uuidv4());
+  const navigate = useNavigate();
 
   const handleHostName = (e) => {
     setHostName(e.target.value);
@@ -17,17 +19,32 @@ const Login = () => {
   const handleGenerate = () => {
     setRoomId(uuidv4());
   };
-  const handleCreateRoom = () => {
+
+  const handleCreateRoom = (e) => {
+    e.preventDefault();
     const roomData = {
       host: true,
-      hostName,
+      userName: hostName,
       userID: uuidv4(),
       roomId,
     };
+    setUser(roomData);
+    navigate(`/${roomId}`);
     console.log(roomData);
+    socket.emit("userJoined", roomData);
   };
-  const handleJoinRoom = () => {
-    console.log("Hi to join");
+
+  const handleJoinRoom = (e) => {
+    e.preventDefault();
+    const roomData = {
+      host: false,
+      userName: joinName,
+      userID: uuidv4(),
+      roomId: joinInput,
+    };
+    setUser(roomData);
+    navigate(`/${roomId}`);
+    socket.emit("userJoined", roomData);
   };
 
   return (
