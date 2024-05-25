@@ -16,6 +16,10 @@ io.on("connection", (socket) => {
     socket.join(roomId);
     socket.emit("userIsJoined", { success: true });
   });
+
+  socket.on("drawing", (data) => {
+    if (data.user) io.in(data.user.roomId).emit("drawing", data.element);
+  });
 });
 
 const port = process.env.PORT || 5000;
