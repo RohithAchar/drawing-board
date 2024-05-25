@@ -26,7 +26,7 @@ function App() {
     <div>
       <Routes>
         <Route path="/" element={<Login socket={socket} setUser={setUser} />} />
-        <Route path="/:roomId" element={<Room />} />
+        <Route path="/:roomId" element={<Room socket={socket} user={user} />} />
       </Routes>
     </div>
   );

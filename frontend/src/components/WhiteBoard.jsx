@@ -12,10 +12,18 @@ const WhiteBoard = ({
   getFill,
   getFillStyle,
   getFillWeight,
+  socket,
+  user,
 }) => {
   const [drawing, setDrawing] = useState(false);
   const [isText, setIsText] = useState(false);
   const [cursor, setCursor] = useState("cursor-crosshair");
+
+  useEffect(() => {
+    socket.on("drawing", (data) => {
+      setElements((prevEle) => [...prevEle, data]);
+    });
+  }, []);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -196,6 +204,7 @@ const WhiteBoard = ({
   };
   const handleMouseUp = (e) => {
     setDrawing(false);
+    socket.emit("drawing", { user, element: elements[elements.length - 1] });
   };
   const handleDoubleClick = (e) => {
     if (tool == "text" && isText) setIsText(false);

@@ -4,7 +4,7 @@ import WhiteBoard from "../components/WhiteBoard";
 import ToolProperties from "../components/ToolProperties";
 import ToolBarToggleBtn from "../components/ToolBarToggleBtn";
 
-const Room = () => {
+const Room = ({ socket, user }) => {
   const [tool, setTool] = useState("pencil");
   const [color, setColor] = useState("#1e1e1e");
   const [thickness, setThickness] = useState(2);
@@ -89,6 +89,8 @@ const Room = () => {
         getFill={fill}
         getFillStyle={fillStyle}
         getFillWeight={fillWeight}
+        socket={socket}
+        user={user}
       />
       {/* <ToolBarToggleBtn
         handleToggle={setIsToolPropertyOpen}

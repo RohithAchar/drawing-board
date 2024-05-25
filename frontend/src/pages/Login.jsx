@@ -30,7 +30,6 @@ const Login = ({ socket, setUser }) => {
     };
     setUser(roomData);
     navigate(`/${roomId}`);
-    console.log(roomData);
     socket.emit("userJoined", roomData);
   };
 
