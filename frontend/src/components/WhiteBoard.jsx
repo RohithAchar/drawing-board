@@ -23,6 +23,9 @@ const WhiteBoard = ({
     socket.on("drawing", (data) => {
       setElements((prevEle) => [...prevEle, data]);
     });
+    socket.on("text", (data) => {
+      setElements((prevEle) => [...prevEle, data]);
+    });
   }, []);
 
   useEffect(() => {
@@ -65,14 +68,14 @@ const WhiteBoard = ({
           fill: element.fill,
           fillStyle: element.fillStyle,
           fillWeight: element.fillWeight,
-          roughness: 2,
+          roughness: 0,
         });
       } else if (element.type === "circle") {
         roughCanvas.circle(...element.path, {
           stroke: element.stroke,
           strokeWidth: element.strokeWidth,
           bowing: 1,
-          roughness: 1,
+          roughness: 0,
           seed: element.seed,
           fill: element.fill,
           fillStyle: element.fillStyle,
@@ -89,6 +92,12 @@ const WhiteBoard = ({
   const handleMouseDown = (e) => {
     setDrawing(true);
     setCursor("cursor-crosshair");
+    if (isText) {
+      socket.emit("text", {
+        user: user,
+        element: elements[elements.length - 1],
+      });
+    }
     setIsText(false);
     const { clientX, clientY } = e;
     if (tool == "pencil") {
@@ -204,10 +213,14 @@ const WhiteBoard = ({
   };
   const handleMouseUp = (e) => {
     setDrawing(false);
-    socket.emit("drawing", { user, element: elements[elements.length - 1] });
+    if (elements[elements.length - 1].type != "text") {
+      socket.emit("drawing", { user, element: elements[elements.length - 1] });
+    }
   };
   const handleDoubleClick = (e) => {
-    if (tool == "text" && isText) setIsText(false);
+    if (tool == "text" && isText) {
+      setIsText(false);
+    }
     if (tool == "text") {
       setCursor("cursor-text");
       setIsText(true);

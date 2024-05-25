@@ -20,6 +20,10 @@ io.on("connection", (socket) => {
   socket.on("drawing", (data) => {
     if (data.user) io.in(data.user.roomId).emit("drawing", data.element);
   });
+
+  socket.on("text", (data) => {
+    if (data.user) io.in(data.user.roomId).emit("text", data.element);
+  });
 });
 
 const port = process.env.PORT || 5000;

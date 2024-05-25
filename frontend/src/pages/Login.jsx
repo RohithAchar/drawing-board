@@ -42,7 +42,7 @@ const Login = ({ socket, setUser }) => {
       roomId: joinInput,
     };
     setUser(roomData);
-    navigate(`/${roomId}`);
+    navigate(`/${joinInput}`);
     socket.emit("userJoined", roomData);
   };
 
