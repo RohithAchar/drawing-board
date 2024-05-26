@@ -41,6 +41,10 @@ io.on("connection", (socket) => {
   socket.on("undo", (data) => {
     if (data) io.in(data.user.roomId).emit("undoRes", data);
   });
+
+  socket.on("redo", (data) => {
+    if (data) socket.to(data.user.roomId).emit("redoRes", data);
+  });
 });
 
 const port = process.env.PORT || 5000;

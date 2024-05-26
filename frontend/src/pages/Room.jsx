@@ -17,13 +17,14 @@ const Room = ({ socket, user }) => {
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
-
+  console.log("HISTORY: ", history);
   useEffect(() => {
     socket.on("clearRes", handleClearFromServer);
     socket.on("undoRes", handleUndoFromServer);
+    socket.on("redoRes", handleRedoFromServer);
     return () => {
       socket.off("undoRes", handleUndoFromServer);
-      // socket.off('redo', handleRedoFromServer);
+      socket.off("redoRef", handleRedoFromServer);
       socket.off("clearRes", handleClearFromServer);
     };
   }, []);
@@ -35,7 +36,8 @@ const Room = ({ socket, user }) => {
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   };
   const handleUndoFromServer = (data) => {
-    if (data.userID != user.userID) {
+    if (data.user.userID != user.userID) {
+      console.log("SUS server");
       if (data.elements.length === 0) return;
       if (data.elements.length === 1) {
         const ctx = ctxRef.current;
@@ -48,6 +50,19 @@ const Room = ({ socket, user }) => {
       setElements([...data.elements.slice(0, -1)]);
     }
   };
+  const handleRedoFromServer = (data) => {
+    if (data.user.userID != user.userID) {
+      if (data.history.length === 0) return;
+      setElements((previousElement) => [
+        ...previousElement,
+        data.history[data.history.length - 1],
+      ]);
+      setHistory((previousHistory) =>
+        previousHistory.slice(0, previousHistory.length - 1)
+      );
+    }
+    console.log("handleRedoFromServer");
+  };
 
   const handleUndo = () => {
     if (elements.length === 0) return;
@@ -55,10 +70,10 @@ const Room = ({ socket, user }) => {
       const ctx = ctxRef.current;
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
-    setHistory((previousHistory) => [
-      ...previousHistory,
-      elements[elements.length - 1],
-    ]);
+    console.log("SUS");
+    setHistory((previousHistory) => {
+      return [...previousHistory, elements[elements.length - 1]];
+    });
     setElements((previousElements) =>
       previousElements.slice(0, previousElements.length - 1)
     );
@@ -73,6 +88,7 @@ const Room = ({ socket, user }) => {
     setHistory((previousHistory) =>
       previousHistory.slice(0, previousHistory.length - 1)
     );
+    socket.emit("undo", { user, elements });
   };
   const handleDelete = () => {
     const ctx = ctxRef.current;
