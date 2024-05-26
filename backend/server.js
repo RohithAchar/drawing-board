@@ -18,7 +18,12 @@ io.on("connection", (socket) => {
   });
 
   socket.on("drawing", (data) => {
-    if (data.user) io.in(data.user.roomId).emit("drawing", data.element);
+    console.log("SERVER DRAWING: ", data.element);
+    if (data.user)
+      io.in(data.user.roomId).emit("drawing", {
+        user: data.user,
+        element: data.element,
+      });
   });
 
   socket.on("text", (data) => {

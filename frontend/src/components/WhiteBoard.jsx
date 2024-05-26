@@ -15,13 +15,20 @@ const WhiteBoard = ({
   socket,
   user,
 }) => {
+  console.log("ELE: ", elements);
   const [drawing, setDrawing] = useState(false);
   const [isText, setIsText] = useState(false);
   const [cursor, setCursor] = useState("cursor-crosshair");
 
   useEffect(() => {
     socket.on("drawing", (data) => {
-      setElements((prevEle) => [...prevEle, data]);
+      if (data.user.userID !== user.userID)
+        setElements((prevEle) => {
+          if (prevEle[prevEle.length - 1] != data.element) {
+            return [...removeDuplicates(prevEle), data.element];
+          }
+          return [...removeDuplicates(prevEle)];
+        });
     });
     socket.on("text", (data) => {
       setElements((prevEle) => [...prevEle, data]);
@@ -33,6 +40,12 @@ const WhiteBoard = ({
     const ctx = canvas.getContext("2d");
     ctxRef.current = ctx;
   }, []);
+
+  // useEffect(() => {
+  //   const temp = elements;
+  //   let removed = removeDuplicates(temp);
+  //   console.log("Removed: ", removed);
+  // }, []);
 
   useLayoutEffect(() => {
     const roughCanvas = rough.canvas(canvasRef.current);
@@ -88,6 +101,11 @@ const WhiteBoard = ({
       }
     });
   }, [elements]);
+
+  const removeDuplicates = (arr) => {
+    console.log("PREVIOUS ELE: ", arr);
+    return [...new Set(arr)];
+  };
 
   const handleMouseDown = (e) => {
     setDrawing(true);
