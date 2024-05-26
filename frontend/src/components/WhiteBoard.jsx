@@ -30,8 +30,14 @@ const WhiteBoard = ({
           return [...removeDuplicates(prevEle)];
         });
     });
-    socket.on("text", (data) => {
-      setElements((prevEle) => [...prevEle, data]);
+    socket.on("textRes", (data) => {
+      if (data.user.userID !== user.userID)
+        setElements((prevEle) => {
+          if (prevEle[prevEle.length - 1] != data.element) {
+            return [...removeDuplicates(prevEle), data.element];
+          }
+          return [...removeDuplicates(prevEle)];
+        });
     });
   }, []);
 
@@ -110,7 +116,7 @@ const WhiteBoard = ({
   const handleMouseDown = (e) => {
     setDrawing(true);
     setCursor("cursor-crosshair");
-    if (isText) {
+    if (tool == "text" && isText) {
       socket.emit("text", {
         user: user,
         element: elements[elements.length - 1],
@@ -231,7 +237,10 @@ const WhiteBoard = ({
   };
   const handleMouseUp = (e) => {
     setDrawing(false);
-    if (elements[elements.length - 1].type != "text") {
+    // if (elements[elements.length - 1].type != "text") {
+    //   socket.emit("drawing", { user, element: elements[elements.length - 1] });
+    // }
+    if (tool != "text") {
       socket.emit("drawing", { user, element: elements[elements.length - 1] });
     }
   };

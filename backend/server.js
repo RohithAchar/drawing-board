@@ -27,7 +27,11 @@ io.on("connection", (socket) => {
   });
 
   socket.on("text", (data) => {
-    if (data.user) io.in(data.user.roomId).emit("text", data.element);
+    if (data.user)
+      io.in(data.user.roomId).emit("textRes", {
+        user: data.user,
+        element: data.element,
+      });
   });
 
   socket.on("clear", (data) => {
