@@ -37,6 +37,10 @@ io.on("connection", (socket) => {
   socket.on("clear", (data) => {
     if (data) io.in(data.roomId).emit("clearRes");
   });
+
+  socket.on("undo", (data) => {
+    if (data) io.in(data.user.roomId).emit("undoRes", data);
+  });
 });
 
 const port = process.env.PORT || 5000;

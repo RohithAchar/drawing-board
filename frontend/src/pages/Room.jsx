@@ -20,8 +20,9 @@ const Room = ({ socket, user }) => {
 
   useEffect(() => {
     socket.on("clearRes", handleClearFromServer);
+    socket.on("undoRes", handleUndoFromServer);
     return () => {
-      // socket.off('undo', handleUndoFromServer);
+      socket.off("undoRes", handleUndoFromServer);
       // socket.off('redo', handleRedoFromServer);
       socket.off("clearRes", handleClearFromServer);
     };
@@ -32,6 +33,20 @@ const Room = ({ socket, user }) => {
     const ctx = ctxRef.current;
     setElements([]);
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  };
+  const handleUndoFromServer = (data) => {
+    if (data.userID != user.userID) {
+      if (data.elements.length === 0) return;
+      if (data.elements.length === 1) {
+        const ctx = ctxRef.current;
+        ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      }
+      setHistory((previousHistory) => [
+        ...previousHistory,
+        data.elements[data.elements.length - 1],
+      ]);
+      setElements([...data.elements.slice(0, -1)]);
+    }
   };
 
   const handleUndo = () => {
@@ -47,6 +62,7 @@ const Room = ({ socket, user }) => {
     setElements((previousElements) =>
       previousElements.slice(0, previousElements.length - 1)
     );
+    socket.emit("undo", { user, elements });
   };
   const handleRedo = () => {
     if (history.length === 0) return;
