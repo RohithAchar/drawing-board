@@ -27,7 +27,7 @@ const Room = ({ socket, user }) => {
       socket.off("redoRef", handleRedoFromServer);
       socket.off("clearRes", handleClearFromServer);
     };
-  }, []);
+  }, [user]);
 
   const handleClearFromServer = () => {
     console.log("Clear Response");
@@ -53,10 +53,9 @@ const Room = ({ socket, user }) => {
   const handleRedoFromServer = (data) => {
     if (data.user.userID != user.userID) {
       if (data.history.length === 0) return;
-      setElements((previousElement) => [
-        ...previousElement,
-        data.history[data.history.length - 1],
-      ]);
+      setElements(() => {
+        return [...data.elements, data.history[data.history.length - 1]];
+      });
       setHistory((previousHistory) =>
         previousHistory.slice(0, previousHistory.length - 1)
       );
@@ -88,7 +87,7 @@ const Room = ({ socket, user }) => {
     setHistory((previousHistory) =>
       previousHistory.slice(0, previousHistory.length - 1)
     );
-    socket.emit("undo", { user, elements });
+    socket.emit("redo", { user, elements, history });
   };
   const handleDelete = () => {
     const ctx = ctxRef.current;
