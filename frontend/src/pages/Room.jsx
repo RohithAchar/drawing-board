@@ -18,9 +18,21 @@ const Room = ({ socket, user }) => {
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
 
-  // console.log(tool);
-  // console.log(color);
-  // console.log("Thickness: ", thickness);
+  useEffect(() => {
+    socket.on("clearRes", handleClearFromServer);
+    return () => {
+      // socket.off('undo', handleUndoFromServer);
+      // socket.off('redo', handleRedoFromServer);
+      socket.off("clearRes", handleClearFromServer);
+    };
+  }, []);
+
+  const handleClearFromServer = () => {
+    console.log("Clear Response");
+    const ctx = ctxRef.current;
+    setElements([]);
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+  };
 
   const handleUndo = () => {
     if (elements.length === 0) return;
@@ -50,6 +62,7 @@ const Room = ({ socket, user }) => {
     const ctx = ctxRef.current;
     setElements([]);
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    socket.emit("clear", user);
   };
 
   return (

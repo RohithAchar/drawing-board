@@ -24,6 +24,10 @@ io.on("connection", (socket) => {
   socket.on("text", (data) => {
     if (data.user) io.in(data.user.roomId).emit("text", data.element);
   });
+
+  socket.on("clear", (data) => {
+    if (data) io.in(data.roomId).emit("clearRes");
+  });
 });
 
 const port = process.env.PORT || 5000;
