@@ -4,7 +4,7 @@ import WhiteBoard from "../components/WhiteBoard";
 import ToolProperties from "../components/ToolProperties";
 import ToolBarToggleBtn from "../components/ToolBarToggleBtn";
 
-const Room = ({ socket, user }) => {
+const Room = ({ socket, user, activeUsers }) => {
   const [tool, setTool] = useState("pencil");
   const [color, setColor] = useState("#1e1e1e");
   const [thickness, setThickness] = useState(2);
@@ -17,7 +17,7 @@ const Room = ({ socket, user }) => {
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
-  console.log("HISTORY: ", history);
+
   useEffect(() => {
     socket.on("clearRes", handleClearFromServer);
     socket.on("undoRes", handleUndoFromServer);
@@ -30,14 +30,12 @@ const Room = ({ socket, user }) => {
   }, [user]);
 
   const handleClearFromServer = () => {
-    console.log("Clear Response");
     const ctx = ctxRef.current;
     setElements([]);
     ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
   };
   const handleUndoFromServer = (data) => {
     if (data.user.userID != user.userID) {
-      console.log("SUS server");
       if (data.elements.length === 0) return;
       if (data.elements.length === 1) {
         const ctx = ctxRef.current;
@@ -60,7 +58,6 @@ const Room = ({ socket, user }) => {
         previousHistory.slice(0, previousHistory.length - 1)
       );
     }
-    console.log("handleRedoFromServer");
   };
 
   const handleUndo = () => {
@@ -69,7 +66,6 @@ const Room = ({ socket, user }) => {
       const ctx = ctxRef.current;
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
     }
-    console.log("SUS");
     setHistory((previousHistory) => {
       return [...previousHistory, elements[elements.length - 1]];
     });

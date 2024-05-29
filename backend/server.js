@@ -10,11 +10,18 @@ app.get("/", (req, res) => {
   res.send("Mern realtime whiteboard");
 });
 
+const users = [];
+
+function addUser(userName, userID, roomId) {
+  users.push({ userName, userID, roomId });
+}
+
 io.on("connection", (socket) => {
   socket.on("userJoined", (data) => {
-    const { hostName, userID, roomId } = data;
+    const { userName, userID, roomId } = data;
     socket.join(roomId);
-    socket.emit("userIsJoined", { success: true });
+    addUser(userName, userID, roomId);
+    io.in(roomId).emit("userIsJoined", { success: true, users });
   });
 
   socket.on("drawing", (data) => {

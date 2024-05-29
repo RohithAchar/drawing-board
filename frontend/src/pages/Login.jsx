@@ -23,6 +23,7 @@ const Login = ({ socket, setUser }) => {
 
   const handleCreateRoom = (e) => {
     e.preventDefault();
+    if (hostName === "") return;
     const roomData = {
       host: true,
       userName: hostName,
@@ -36,6 +37,7 @@ const Login = ({ socket, setUser }) => {
 
   const handleJoinRoom = (e) => {
     e.preventDefault();
+    if (joinName === "" || joinInput === "") return;
     const roomData = {
       host: false,
       userName: joinName,

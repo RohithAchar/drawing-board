@@ -15,7 +15,6 @@ const WhiteBoard = ({
   socket,
   user,
 }) => {
-  console.log("ELE: ", elements);
   const [drawing, setDrawing] = useState(false);
   const [isText, setIsText] = useState(false);
   const [cursor, setCursor] = useState("cursor-crosshair");
@@ -109,7 +108,6 @@ const WhiteBoard = ({
   }, [elements]);
 
   const removeDuplicates = (arr) => {
-    console.log("PREVIOUS ELE: ", arr);
     return [...new Set(arr)];
   };
 
