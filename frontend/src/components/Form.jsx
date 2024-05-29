@@ -14,7 +14,7 @@ const Form = ({
   handleJoinRoom,
 }) => {
   return (
-    <div className="mx-auto w-[400px] h-[400px] text-center p-10 border-2">
+    <div className="mx-auto w-[400px] h-[400px] text-center p-10 border-2 bg-white">
       <h2 className="text-5xl font-bold mb-14">
         {createRoom ? "Create Room" : "Join Room"}
       </h2>
@@ -39,12 +39,14 @@ const Form = ({
             <button className="btn" onClick={handleGenerate}>
               Generate
             </button>
-            <button className="btn btn-outline">Copy</button>
+            <button className="btn btn-outline bg-black text-white hover:bg-[#161616]">
+              Copy
+            </button>
           </>
         )}
       </div>
       <button
-        className="btn btn-primary mt-7 w-full"
+        className="btn bg-black hover:bg-[#161616] text-white mt-7 w-full"
         onClick={createRoom ? handleCreateRoom : handleJoinRoom}
       >
         {createRoom ? "Create Room" : "Join Room"}

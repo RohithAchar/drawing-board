@@ -2,6 +2,7 @@ import { useState } from "react";
 import Form from "../components/Form";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
+import LoginHeading from "../components/LoginHeading";
 
 const Login = ({ socket, setUser }) => {
   const [hostName, setHostName] = useState("");
@@ -47,29 +48,32 @@ const Login = ({ socket, setUser }) => {
   };
 
   return (
-    <div
-      className="flex h-screen items-center justify-center gap-16"
-      data-theme="light"
-    >
-      <div>
-        <Form
-          createRoom={true}
-          hostName={hostName}
-          setHostName={handleHostName}
-          getRoomId={roomId}
-          handleGenerate={handleGenerate}
-          handleCreateRoom={handleCreateRoom}
-        />
-      </div>
-      <div>
-        <Form
-          createRoom={false}
-          joinName={joinName}
-          setJoinName={handleJoinName}
-          getJoinInput={joinInput}
-          setJoinInput={setJoinInput}
-          handleJoinRoom={handleJoinRoom}
-        />
+    <div className="relative">
+      <LoginHeading />
+      <div
+        className="flex h-screen items-center justify-center gap-16 bg-[#161616]"
+        data-theme="light"
+      >
+        <div>
+          <Form
+            createRoom={true}
+            hostName={hostName}
+            setHostName={handleHostName}
+            getRoomId={roomId}
+            handleGenerate={handleGenerate}
+            handleCreateRoom={handleCreateRoom}
+          />
+        </div>
+        <div>
+          <Form
+            createRoom={false}
+            joinName={joinName}
+            setJoinName={handleJoinName}
+            getJoinInput={joinInput}
+            setJoinInput={setJoinInput}
+            handleJoinRoom={handleJoinRoom}
+          />
+        </div>
       </div>
     </div>
   );

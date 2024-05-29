@@ -293,7 +293,7 @@ const WhiteBoard = ({
       <canvas
         tabIndex={0}
         ref={canvasRef}
-        className={`z-[-10] ${cursor}`}
+        className={`z-[-10] ${cursor} bg-room-bg`}
         width={window.innerWidth}
         height={window.innerHeight}
         onMouseDown={handleMouseDown}
