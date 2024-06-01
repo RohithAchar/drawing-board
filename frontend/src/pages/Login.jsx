@@ -3,6 +3,8 @@ import Form from "../components/Form";
 import { v4 as uuidv4 } from "uuid";
 import { useNavigate } from "react-router-dom";
 import LoginHeading from "../components/LoginHeading";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = ({ socket, setUser }) => {
   const [hostName, setHostName] = useState("");
@@ -49,9 +51,24 @@ const Login = ({ socket, setUser }) => {
     socket.emit("userJoined", roomData);
   };
 
+  const handleCopy = () => {
+    navigator.clipboard
+      .writeText(roomId)
+      .then(() => {
+        toast("Text copied to clipboard", {
+          type: "success",
+        });
+        console.log("Text copied to clipboard");
+      })
+      .catch((err) => {
+        console.error("Failed to copy text: ", err);
+      });
+  };
+
   return (
     <div className="relative">
       <LoginHeading />
+      <ToastContainer />
       <div
         className="flex h-screen items-center justify-center gap-16 bg-[#161616]"
         data-theme="light"
@@ -64,6 +81,7 @@ const Login = ({ socket, setUser }) => {
             getRoomId={roomId}
             handleGenerate={handleGenerate}
             handleCreateRoom={handleCreateRoom}
+            handleCopy={handleCopy}
           />
         </div>
         <div>

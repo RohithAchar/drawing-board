@@ -3,6 +3,8 @@ import ToolBar from "../components/ToolBar";
 import WhiteBoard from "../components/WhiteBoard";
 import ToolProperties from "../components/ToolProperties";
 import ToolBarToggleBtn from "../components/ToolBarToggleBtn";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Room = ({ socket, user, activeUsers }) => {
   const [tool, setTool] = useState("pencil");
@@ -17,6 +19,16 @@ const Room = ({ socket, user, activeUsers }) => {
 
   const canvasRef = useRef(null);
   const ctxRef = useRef(null);
+
+  useEffect(() => {
+    const joinedUser = activeUsers[activeUsers.length - 1];
+    if (!(user && joinedUser)) return;
+    if (joinedUser.userID != user.userID && joinedUser.roomId == user.roomId) {
+      toast(`${joinedUser.userName} has joined`, {
+        type: "info",
+      });
+    }
+  }, [activeUsers]);
 
   useEffect(() => {
     socket.on("clearRes", handleClearFromServer);
@@ -94,6 +106,7 @@ const Room = ({ socket, user, activeUsers }) => {
 
   return (
     <div className="relative">
+      <ToastContainer />
       <ToolBar
         handleSelectTool={setTool}
         handleUndo={handleUndo}

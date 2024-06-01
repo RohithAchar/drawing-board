@@ -1,5 +1,7 @@
 import { useEffect, useLayoutEffect, useState } from "react";
 import rough from "roughjs";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const WhiteBoard = ({
   canvasRef,
@@ -39,6 +41,27 @@ const WhiteBoard = ({
         });
     });
   }, []);
+
+  // useEffect(() => {
+  //   if (user)
+  //     toast(`Welcome ${user.userName}!`, {
+  //       type: "success",
+  //     });
+  // }, [user]);
+
+  const handleBeforeUnload = (event) => {
+    socket.emit("userLeft", user);
+    console.log("UserLeft");
+  };
+  const handleVisibilityChange = () => {
+    if (document.visibilityState === "hidden") {
+      // Emit a socket event when the user switches tabs or minimizes the browser
+      socket.emit("userLeft", user);
+      console.log("User has left the page or switched tabs");
+    } else {
+      console.log("User is back on the page");
+    }
+  };
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -288,6 +311,7 @@ const WhiteBoard = ({
 
   return (
     <>
+      <ToastContainer />
       <canvas
         tabIndex={0}
         ref={canvasRef}

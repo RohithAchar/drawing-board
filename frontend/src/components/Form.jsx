@@ -12,6 +12,7 @@ const Form = ({
   setJoinInput,
   handleCreateRoom,
   handleJoinRoom,
+  handleCopy,
 }) => {
   return (
     <div className="mx-auto w-[400px] h-[400px] text-center p-10 border-2 bg-white">
@@ -39,7 +40,10 @@ const Form = ({
             <button className="btn" onClick={handleGenerate}>
               Generate
             </button>
-            <button className="btn btn-outline bg-black text-white hover:bg-[#161616]">
+            <button
+              className="btn btn-outline bg-black text-white hover:bg-[#161616]"
+              onClick={handleCopy}
+            >
               Copy
             </button>
           </>

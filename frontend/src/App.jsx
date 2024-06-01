@@ -20,11 +20,12 @@ function App() {
   useEffect(() => {
     socket.on("userIsJoined", (data) => {
       if (data.success) {
-        console.log("User joined");
         setActiveUsers(data.users);
       } else console.log("Something went wrong");
     });
   }, []);
+
+  console.log("ACTIVE: ", activeUsers);
   return (
     <div>
       <Routes>
