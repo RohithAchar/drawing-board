@@ -42,13 +42,6 @@ const WhiteBoard = ({
     });
   }, []);
 
-  // useEffect(() => {
-  //   if (user)
-  //     toast(`Welcome ${user.userName}!`, {
-  //       type: "success",
-  //     });
-  // }, [user]);
-
   const handleBeforeUnload = (event) => {
     socket.emit("userLeft", user);
     console.log("UserLeft");

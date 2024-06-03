@@ -25,10 +25,16 @@ const Room = ({ socket, user, activeUsers }) => {
     if (!(user && joinedUser)) return;
     if (joinedUser.userID != user.userID && joinedUser.roomId == user.roomId) {
       toast(`${joinedUser.userName} has joined`, {
-        type: "info",
+        type: "default",
       });
     }
   }, [activeUsers]);
+
+  // useEffect(() => {
+  //   toast(`Welcome ${user.userName}!`, {
+  //     type: "success",
+  //   });
+  // }, []);
 
   useEffect(() => {
     socket.on("clearRes", handleClearFromServer);

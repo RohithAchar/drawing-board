@@ -25,7 +25,12 @@ const Login = ({ socket, setUser }) => {
 
   const handleCreateRoom = (e) => {
     e.preventDefault();
-    if (hostName === "") return;
+    if (hostName === "") {
+      toast("Username is empty", {
+        type: "warning",
+      });
+      return;
+    }
     const roomData = {
       host: true,
       userName: hostName,
@@ -39,7 +44,18 @@ const Login = ({ socket, setUser }) => {
 
   const handleJoinRoom = (e) => {
     e.preventDefault();
-    if (joinName === "" || joinInput === "") return;
+    if (joinName === "") {
+      toast("Empty username", {
+        type: "warning",
+      });
+      return;
+    }
+    if (joinInput === "") {
+      toast("Empty room id", {
+        type: "warning",
+      });
+      return;
+    }
     const roomData = {
       host: false,
       userName: joinName,
